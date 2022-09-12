@@ -1,0 +1,29 @@
+vars:
+  api:
+    version-url: /api/v1
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: panda
+    password: password
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.spatial.dialect.postgis.PostgisDialect
+        default_schema: panda
+        hbm2ddl:
+          charset_name: UTF-8
+  flyway:
+    enabled: true
+    schemas: panda
+    default-schema: panda
+logging:
+  charset:
+    console: UTF-8
+  level:
+    ### log just the SQL
+    org.hibernate.SQL: DEBUG
+    ### log JDBC bind parameters
+    org.hibernate.type: TRACE
+    org.hibernate.type.descriptor.sql: TRACE
