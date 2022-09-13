@@ -1,4 +1,4 @@
-package com.aol.alkuznetsov.panda.server.entity;
+package com.aol.alkuznetsov.panda.server.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

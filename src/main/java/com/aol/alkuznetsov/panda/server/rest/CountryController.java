@@ -1,6 +1,6 @@
 package com.aol.alkuznetsov.panda.server.rest;
 
-import com.aol.alkuznetsov.panda.server.entity.Country;
+import com.aol.alkuznetsov.panda.server.dto.CountryDto;
 import com.aol.alkuznetsov.panda.server.service.CountryService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ public class CountryController {
   @Autowired private CountryService countryService;
 
   @GetMapping("/countries")
-  public List<Country> findAll() {
+  public List<CountryDto> findAll() {
     return countryService.findAll();
   }
 }
