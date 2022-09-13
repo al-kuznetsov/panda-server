@@ -8,24 +8,31 @@
 -- Create animal-related tables
 -- ---
 
+-- Type of animal in itd common sense (loosely related to species).
+-- E.g.: dog, cat, racoon, coyote etc.
 CREATE TABLE animal_type
 (
     id bigint PRIMARY KEY DEFAULT nextval('global_id_sequence'),
-    name varchar(512) NOT NULL,
-    image_url varchar(512) NULL DEFAULT NULL
+    code varchar(256) NOT NULL,
+    name varchar(256) NOT NULL,
+    description varchar(1024),
+    image_url varchar(512)
 );
 
+-- Breed if applicable to an animal type
+-- E.g.: dog - poodle, mix, labrador, etc.
 CREATE TABLE breed
 (
     id bigint PRIMARY KEY DEFAULT nextval('global_id_sequence'),
-    name varchar(512) NOT NULL,
-    valuable boolean NOT NULL DEFAULT false,
+    name varchar(256) NOT NULL,
+    description varchar(1024),
+    valuable boolean NULL DEFAULT false,
     type_id bigint NOT NULL,
-    image_url varchar(512) NULL DEFAULT NULL,
-    average_body_mass real NULL DEFAULT NULL,
-    average_height real NULL DEFAULT NULL,
-    average_length real NULL DEFAULT NULL,
-    average_tameness smallint NULL DEFAULT 1,
+    image_url varchar(512),
+    average_body_mass real,
+    average_height real,
+    average_length real,
+    average_tameness smallint,
     CONSTRAINT fk_breed_animal_type FOREIGN KEY (type_id) REFERENCES animal_type (id)
 );
 
@@ -33,34 +40,38 @@ CREATE TABLE breed
 CREATE TABLE animal_status
 (
     id integer PRIMARY KEY DEFAULT nextval('global_id_sequence'),
-    name varchar(255) NOT NULL
+    code varchar(256) NOT NULL,
+    name varchar(256) NOT NULL,
+    description varchar(1024)
 );
 
 -- The criteria to consider when helping decision making
+-- Rated from 1 to 5
 CREATE TABLE animal_criteria
 (
     id integer PRIMARY KEY DEFAULT nextval('global_id_sequence'),
-    stressed boolean NOT NULL DEFAULT false,
-    sick boolean NOT NULL DEFAULT false,
-    traumatised boolean NOT NULL DEFAULT false,
-    mobile boolean NOT NULL DEFAULT false
+    stress smallint,
+    sickness smallint,
+    trauma smallint,
+    mobility smallint,
+    tameness smallint
 );
 
 CREATE TABLE animal
 (
     id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-    name varchar(512) NULL DEFAULT NULL,
-    birth_date DATE NULL DEFAULT NULL,
-    description varchar(15600) NULL DEFAULT NULL,
-    full_bio TEXT NULL DEFAULT NULL,
-    image_url varchar(512) NULL DEFAULT NULL,
-    active boolean NOT NULL DEFAULT false,
-    date_created timestamp without time zone NOT NULL,
-    last_updated timestamp without time zone NOT NULL,
+    name varchar(512),
+    birth_date DATE,
+    description varchar(15600),
+    full_bio TEXT,
+    image_url varchar(512),
+    active boolean NULL DEFAULT false,
+    date_created timestamp without time zone NOT NULL DEFAULT now(),
+    last_updated timestamp without time zone NOT NULL DEFAULT now(),
     type_id bigint NOT NULL,
-    breed_id bigint NOT NULL,
-    status_id bigint NULL DEFAULT NULL,
-    criteria_id bigint NOT NULL,
+    breed_id bigint,
+    status_id bigint,
+    criteria_id bigint,
     CONSTRAINT fk_animal_type FOREIGN KEY (type_id) REFERENCES animal_type (id),
     CONSTRAINT fk_breed FOREIGN KEY (breed_id) REFERENCES breed (id),
     CONSTRAINT fk_animal_status FOREIGN KEY (status_id) REFERENCES animal_status (id),

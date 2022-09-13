@@ -17,6 +17,7 @@ CREATE TABLE country
 CREATE TABLE region_type
 (
     id bigint PRIMARY KEY DEFAULT nextval('global_id_sequence'),
+    code varchar(256) NOT NULL,
     name varchar(512) NOT NULL
 );
 
@@ -35,7 +36,8 @@ CREATE TABLE region
 CREATE TABLE locality_type
 (
     id bigint PRIMARY KEY DEFAULT nextval('global_id_sequence'),
-    name varchar(255) NOT NULL
+    code varchar(256) NOT NULL,
+    name varchar(256) NOT NULL
 );
 
 -- The locality in which the street address is, and which is in the region. For example, Mountain View.
@@ -53,6 +55,7 @@ CREATE TABLE locality
 CREATE TABLE address_type
 (
     id bigint PRIMARY KEY DEFAULT nextval('global_id_sequence'),
+    code varchar(128) NOT NULL,
     name varchar(128) NOT NULL
 );
 
