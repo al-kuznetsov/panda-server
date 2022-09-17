@@ -39,7 +39,7 @@ CREATE TABLE breed
 -- E.g.: has a guardian, in shelter, stray, wild, duty, etc.
 CREATE TABLE animal_status
 (
-    id integer PRIMARY KEY DEFAULT nextval('global_id_sequence'),
+    id bigint PRIMARY KEY DEFAULT nextval('global_id_sequence'),
     code varchar(256) NOT NULL,
     name varchar(256) NOT NULL,
     description varchar(1024)
@@ -49,7 +49,7 @@ CREATE TABLE animal_status
 -- Rated from 1 to 5
 CREATE TABLE animal_criteria
 (
-    id integer PRIMARY KEY DEFAULT nextval('global_id_sequence'),
+    id bigint PRIMARY KEY DEFAULT nextval('global_id_sequence'),
     stress smallint,
     sickness smallint,
     trauma smallint,
@@ -59,7 +59,7 @@ CREATE TABLE animal_criteria
 
 CREATE TABLE animal
 (
-    id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id bigint PRIMARY KEY DEFAULT nextval('global_id_sequence'),
     name varchar(512),
     birth_date DATE,
     description varchar(15600),
@@ -80,14 +80,14 @@ CREATE TABLE animal
 
 CREATE TABLE animal_spot
 (
-    animal_id uuid NOT NULL,
+    animal_id bigint NOT NULL,
     spot_id uuid NOT NULL,
     PRIMARY KEY (animal_id, spot_id)
 );
 
 CREATE TABLE animal_address
 (
-    animal_id uuid NOT NULL,
+    animal_id bigint NOT NULL,
     address_id uuid NOT NULL,
     PRIMARY KEY (animal_id, address_id)
 );
