@@ -1,5 +1,6 @@
 package com.aol.alkuznetsov.panda.server.model;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,8 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "animal")
@@ -43,6 +46,14 @@ public class Animal {
 
   @Column(name = "active")
   private Boolean active = false;
+
+  @CreationTimestamp
+  @Column(name = "date_created")
+  private Instant dateCreated;
+
+  @UpdateTimestamp
+  @Column(name = "last_updated")
+  private Instant dateUpdated;
 
   @ManyToOne
   @JoinColumn(name = "status_id")
