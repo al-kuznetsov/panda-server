@@ -1,6 +1,8 @@
 vars:
   api:
     version-url: /api/v1
+  startup:
+    init-sample-data: true
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver

@@ -19,3 +19,9 @@ Attention: the user created in the example is a superuser. Take great care if yo
 When it comes to GIS support, WGS 84 spatial reference system is used (SRID 4326).
 
 For testing purposes it is possible to insert sample data using ```/src/resources/db/postgresql/insert-sample-data.sql```.
+A better way to populate Database with sample data is to run Application with "init" profile and put the following property to "true":
+```yml
+vars:
+  startup:
+    init-sample-data: true
+```
