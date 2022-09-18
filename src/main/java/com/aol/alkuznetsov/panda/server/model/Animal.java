@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,6 +21,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 @Table(name = "animal")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Animal {
@@ -56,6 +58,10 @@ public class Animal {
   private Instant dateUpdated;
 
   @ManyToOne
+  @JoinColumn(name = "type_id")
+  private AnimalType type;
+
+  @ManyToOne
   @JoinColumn(name = "status_id")
-  private AnimalStatus animalStatus;
+  private AnimalStatus status;
 }

@@ -5,9 +5,10 @@ import lombok.Data;
 
 @Data
 @Builder
-public class AnimalStatusDto {
+public class AnimalTypeDto {
   private Long id;
   private String code;
   private String name;
   private String description;
+  private String imageUrl;
 }

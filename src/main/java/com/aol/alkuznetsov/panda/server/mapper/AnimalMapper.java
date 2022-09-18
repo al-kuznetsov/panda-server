@@ -9,12 +9,13 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(
     componentModel = "spring",
     unmappedTargetPolicy = ReportingPolicy.ERROR,
-    uses = {DateTimeMapper.class, AnimalStatusMapper.class})
+    uses = {DateTimeMapper.class, AnimalStatusMapper.class, AnimalTypeMapper.class})
 public interface AnimalMapper {
-
-  @Mapping(target = "animalStatus", source = "animalStatusDto")
+  @Mapping(target = "type", source = "typeDto")
+  @Mapping(target = "status", source = "statusDto")
   Animal fromDto(AnimalDto dto);
 
-  @Mapping(target = "animalStatusDto", source = "animalStatus")
+  @Mapping(target = "typeDto", source = "type")
+  @Mapping(target = "statusDto", source = "status")
   AnimalDto toDto(Animal entity);
 }

@@ -15,5 +15,6 @@ public class AnimalDto {
   private Boolean active;
   private Long dateCreated;
   private Long dateUpdated;
-  private AnimalStatusDto animalStatusDto;
+  private AnimalTypeDto typeDto;
+  private AnimalStatusDto statusDto;
 }
