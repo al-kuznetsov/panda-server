@@ -1,8 +1,19 @@
 vars:
   api:
     version-url: /api/v1
+    info:
+      title: Panda server
+      description: Spring Boot backend for Panda
   startup:
     init-sample-data: true
+springdoc:
+  api-docs:
+    enabled: true
+    resolve-schema-properties: true
+  swagger-ui:
+    enabled: true
+    deepLinking: true
+    validator-url: none
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver

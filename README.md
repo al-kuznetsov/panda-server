@@ -25,3 +25,8 @@ vars:
   startup:
     init-sample-data: true
 ```
+
+### Swagger UI (OpenAPI 3.0 spec)
+
+This application uses SpringDoc tool to integrate with Swagger UI. It is OpenAPI 3.0 compliant API documentation.
+Interactive Swagger UI is available at URL:  [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html).

@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "vars.api.info.title",
+      "type": "java.lang.String",
+      "description": "Наименование приложения."
+    },
+    {
+      "name": "vars.api.info.description",
+      "type": "java.lang.String",
+      "description": "Описание приложения."
+    }
+  ] }
