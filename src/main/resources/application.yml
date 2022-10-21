@@ -23,9 +23,6 @@ spring:
 logging:
   charset:
     console: UTF-8
-  level:
-    ### log just the SQL
-    org.hibernate.SQL: DEBUG
-    ### log JDBC bind parameters
-    org.hibernate.type: TRACE
-    org.hibernate.type.descriptor.sql: TRACE
+  ###level:
+    ### log just the SQL org.hibernate.SQL: DEBUG
+    ### log JDBC bind parameters org.hibernate.type: TRACE org.hibernate.type.descriptor.sql: TRACE

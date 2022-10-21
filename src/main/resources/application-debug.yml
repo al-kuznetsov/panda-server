@@ -1,0 +1,3 @@
+logging:
+  level:
+    com.aol.alkuznetsov.panda.server: DEBUG
