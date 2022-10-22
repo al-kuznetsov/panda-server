@@ -13,12 +13,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "animal_type")
+@Table(name = "locality_type")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnimalType {
+public class LocalityType {
   @Id
   @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_id_sequence")
@@ -28,12 +28,6 @@ public class AnimalType {
   @Column(name = "code", nullable = false, length = 256)
   private String code;
 
-  @Column(name = "name", nullable = false, length = 256)
+  @Column(name = "name", nullable = false, length = 512)
   private String name;
-
-  @Column(name = "description", length = 1024)
-  private String description;
-
-  @Column(name = "image_url", length = 512)
-  private String imageUrl;
 }
