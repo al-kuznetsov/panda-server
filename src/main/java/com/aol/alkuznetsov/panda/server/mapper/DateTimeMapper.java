@@ -1,10 +1,10 @@
 package com.aol.alkuznetsov.panda.server.mapper;
 
+import com.aol.alkuznetsov.panda.server.config.MapperCentralConfig;
 import java.time.Instant;
 import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
+@Mapper(config = MapperCentralConfig.class)
 public interface DateTimeMapper {
   default Long fromInstant(Instant instant) {
     return instant.toEpochMilli();

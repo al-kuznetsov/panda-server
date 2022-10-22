@@ -15,6 +15,8 @@ public class AnimalDto {
   private Boolean active;
   private Long dateCreated;
   private Long dateUpdated;
-  private AnimalTypeDto typeDto;
-  private AnimalStatusDto statusDto;
+  private AnimalTypeDto type;
+  private BreedDto breed;
+  private AnimalStatusDto status;
+  private AnimalCriteriaDto criteria;
 }

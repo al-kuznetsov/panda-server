@@ -1,17 +1,14 @@
 package com.aol.alkuznetsov.panda.server.mapper;
 
+import com.aol.alkuznetsov.panda.server.config.MapperCentralConfig;
 import com.aol.alkuznetsov.panda.server.dto.CountryDto;
 import com.aol.alkuznetsov.panda.server.model.Country;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
 
-@Mapper(
-    componentModel = "spring",
-    injectionStrategy = InjectionStrategy.CONSTRUCTOR,
-    unmappedTargetPolicy = ReportingPolicy.ERROR)
+@Mapper(config = MapperCentralConfig.class, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface CountryMapper {
-  Country fromDto(CountryDto countryDto);
+  Country fromDto(CountryDto dto);
 
-  CountryDto toDto(Country country);
+  CountryDto toDto(Country entity);
 }

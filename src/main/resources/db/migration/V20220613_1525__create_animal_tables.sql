@@ -32,7 +32,7 @@ CREATE TABLE breed
     average_body_mass real,
     average_height real,
     average_length real,
-    average_tameness smallint,
+    average_tameness integer,
     CONSTRAINT fk_breed_animal_type FOREIGN KEY (type_id) REFERENCES animal_type (id)
 );
 
@@ -50,11 +50,11 @@ CREATE TABLE animal_status
 CREATE TABLE animal_criteria
 (
     id bigint PRIMARY KEY DEFAULT nextval('global_id_sequence'),
-    stress smallint,
-    sickness smallint,
-    trauma smallint,
-    mobility smallint,
-    tameness smallint
+    stress integer,
+    sickness integer,
+    trauma integer,
+    mobility integer,
+    tameness integer
 );
 
 CREATE TABLE animal

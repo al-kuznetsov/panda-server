@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -31,19 +32,19 @@ public class Animal {
   @Column(name = "id")
   private Long id;
 
-  @Column(name = "name")
+  @Column(name = "name", length = 512)
   private String name;
 
   @Column(name = "birth_date")
   private LocalDate birthDate;
 
-  @Column(name = "description")
+  @Column(name = "description", length = 15600)
   private String description;
 
   @Column(name = "full_bio")
   private String fullBio;
 
-  @Column(name = "image_url")
+  @Column(name = "image_url", length = 512)
   private String imageUrl;
 
   @Column(name = "active")
@@ -62,6 +63,14 @@ public class Animal {
   private AnimalType type;
 
   @ManyToOne
+  @JoinColumn(name = "breed_id")
+  private Breed breed;
+
+  @ManyToOne
   @JoinColumn(name = "status_id")
   private AnimalStatus status;
+
+  @OneToOne
+  @JoinColumn(name = "criteria_id")
+  private AnimalCriteria criteria;
 }
