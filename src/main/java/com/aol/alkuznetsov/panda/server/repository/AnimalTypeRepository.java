@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AnimalTypeRepository extends JpaRepository<AnimalType, Long> {
+
   Optional<AnimalType> findByCode(String code);
 }

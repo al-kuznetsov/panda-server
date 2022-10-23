@@ -42,6 +42,13 @@ public class DatabasePopulationService {
 
       List<Spot> spots = persistentDataProviderService.newListOfSpots();
       spotRepository.saveAll(spots);
+
+      persistentDataProviderService.newListOfAddressType(true);
+      persistentDataProviderService.newListOfCountries(true);
+      persistentDataProviderService.newListOfRegionTypes(true);
+      persistentDataProviderService.newListOfRegions(true);
+      persistentDataProviderService.newListOfLocalityTypes(true);
+      persistentDataProviderService.newListOfLocalities(true);
     }
   }
 }
