@@ -1,11 +1,7 @@
 package com.aol.alkuznetsov.panda.server.service;
 
-import com.aol.alkuznetsov.panda.server.model.Animal;
-import com.aol.alkuznetsov.panda.server.model.Spot;
 import com.aol.alkuznetsov.panda.server.repository.AnimalRepository;
 import com.aol.alkuznetsov.panda.server.repository.SpotRepository;
-import com.aol.alkuznetsov.panda.server.util.DebugUtils;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,19 +32,18 @@ public class DatabasePopulationService {
 
       log.info("Saving sample data to the database");
 
-      List<Animal> animals = persistentDataProviderService.newListOfAnimals();
-      List<Animal> savedAnimals = animalRepository.saveAll(animals);
-      log.debug(DebugUtils.getMessageWithAnimalsList("Animals saved to Database: ", savedAnimals));
-
-      List<Spot> spots = persistentDataProviderService.newListOfSpots();
-      spotRepository.saveAll(spots);
-
-      persistentDataProviderService.newListOfAddressType(true);
       persistentDataProviderService.newListOfCountries(true);
       persistentDataProviderService.newListOfRegionTypes(true);
       persistentDataProviderService.newListOfRegions(true);
       persistentDataProviderService.newListOfLocalityTypes(true);
       persistentDataProviderService.newListOfLocalities(true);
+      persistentDataProviderService.newListOfAddressType(true);
+      persistentDataProviderService.newListOfAnimalType(true);
+      persistentDataProviderService.newListOfBreed(true);
+      persistentDataProviderService.newListOfAnimalStatus(true);
+      persistentDataProviderService.newListOfAnimals(true);
+
+      persistentDataProviderService.newListOfSpots(true);
     }
   }
 }

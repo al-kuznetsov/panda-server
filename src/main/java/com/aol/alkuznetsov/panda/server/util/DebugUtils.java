@@ -2,6 +2,9 @@ package com.aol.alkuznetsov.panda.server.util;
 
 import com.aol.alkuznetsov.panda.server.model.AddressType;
 import com.aol.alkuznetsov.panda.server.model.Animal;
+import com.aol.alkuznetsov.panda.server.model.AnimalStatus;
+import com.aol.alkuznetsov.panda.server.model.AnimalType;
+import com.aol.alkuznetsov.panda.server.model.Breed;
 import com.aol.alkuznetsov.panda.server.model.Country;
 import com.aol.alkuznetsov.panda.server.model.Locality;
 import com.aol.alkuznetsov.panda.server.model.LocalityType;
@@ -60,6 +63,36 @@ public class DebugUtils {
 
   public static String getMessageWithAddressTypeList(
       String message, List<AddressType> addressTypes) {
+    List<ImmutableTriple<Long, String, String>> triples =
+        addressTypes.stream()
+            .map(item -> new ImmutableTriple<>(item.getId(), item.getCode(), item.getName()))
+            .collect(Collectors.toList());
+    String resultString = StringUtils.join(triples, System.lineSeparator());
+    return String.format("%s%s%s", message, System.lineSeparator(), resultString);
+  }
+
+  public static String getMessageWithAnimalTypeList(String message, List<AnimalType> addressTypes) {
+    List<ImmutableTriple<Long, String, String>> triples =
+        addressTypes.stream()
+            .map(item -> new ImmutableTriple<>(item.getId(), item.getCode(), item.getName()))
+            .collect(Collectors.toList());
+    String resultString = StringUtils.join(triples, System.lineSeparator());
+    return String.format("%s%s%s", message, System.lineSeparator(), resultString);
+  }
+
+  public static String getMessageWithBreedList(String message, List<Breed> addressTypes) {
+    List<ImmutableTriple<Long, String, String>> triples =
+        addressTypes.stream()
+            .map(
+                item ->
+                    new ImmutableTriple<>(item.getId(), item.getName(), item.getType().getCode()))
+            .collect(Collectors.toList());
+    String resultString = StringUtils.join(triples, System.lineSeparator());
+    return String.format("%s%s%s", message, System.lineSeparator(), resultString);
+  }
+
+  public static String getMessageWithAnimalStatusList(
+      String message, List<AnimalStatus> addressTypes) {
     List<ImmutableTriple<Long, String, String>> triples =
         addressTypes.stream()
             .map(item -> new ImmutableTriple<>(item.getId(), item.getCode(), item.getName()))
