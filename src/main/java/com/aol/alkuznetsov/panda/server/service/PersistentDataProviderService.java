@@ -258,7 +258,6 @@ public class PersistentDataProviderService {
 
     AnimalCriteria criteria1 =
         AnimalCriteria.builder().stress(1).sickness(1).trauma(1).mobility(1).tameness(5).build();
-    AnimalCriteria savedCriteria1 = animalCriteriaRepository.save(criteria1);
     animals.add(
         Animal.builder()
             .name("Черный")
@@ -271,12 +270,11 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
-            .criteria(savedCriteria1)
+            .criteria(criteria1)
             .build());
 
     AnimalCriteria criteria2 =
         AnimalCriteria.builder().stress(2).sickness(3).trauma(2).mobility(1).tameness(5).build();
-    AnimalCriteria savedCriteria2 = animalCriteriaRepository.save(criteria2);
     animals.add(
         Animal.builder()
             .name(null)
@@ -287,7 +285,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
-            .criteria(savedCriteria2)
+            .criteria(criteria2)
             .build());
 
     animals.add(

@@ -2,6 +2,7 @@ package com.aol.alkuznetsov.panda.server.model;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -70,7 +71,7 @@ public class Animal {
   @JoinColumn(name = "status_id")
   private AnimalStatus status;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "criteria_id")
   private AnimalCriteria criteria;
 }
