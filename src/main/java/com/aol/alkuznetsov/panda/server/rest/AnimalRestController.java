@@ -24,6 +24,11 @@ public class AnimalRestController {
     return animalService.findAll();
   }
 
+  @GetMapping("/{id}")
+  public AnimalDto find(@PathVariable Long id) {
+    return animalService.findById(id);
+  }
+
   @PostMapping
   public AnimalDto create(@RequestBody AnimalDto animalDto) {
     return animalService.create(animalDto);

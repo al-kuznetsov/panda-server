@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class AnimalService {
+
+  public static final String NOT_FOUND_BY_ID_MSG = "Animal not found in Database for id: ";
   private final AnimalRepository animalRepository;
   private final AnimalMapper animalMapper;
 
@@ -25,6 +27,16 @@ public class AnimalService {
     return animalRepository.findAll().stream()
         .map(animalMapper::toDto)
         .collect(Collectors.toList());
+  }
+
+  @Transactional(readOnly = true)
+  public AnimalDto findById(Long id) {
+    log.debug("Retrieving animal as AnimalDto by Id {}", id);
+    Animal animal =
+        animalRepository
+            .findById(id)
+            .orElseThrow(() -> new DataNotFoundException(NOT_FOUND_BY_ID_MSG + id));
+    return animalMapper.toDto(animal);
   }
 
   @Transactional
@@ -39,7 +51,7 @@ public class AnimalService {
   public AnimalDto update(Long id, AnimalDto animalDto) {
     log.debug("Updating Animal with id {} based on AnimalDto {}", id, animalDto);
     if (!animalRepository.existsById(id)) {
-      throw new DataNotFoundException("Animal not found in Database for id: " + id);
+      throw new DataNotFoundException(NOT_FOUND_BY_ID_MSG + id);
     }
     Animal animal = animalMapper.fromDto(animalDto);
     animal.setId(id);
@@ -52,7 +64,7 @@ public class AnimalService {
   public void deleteById(Long id) {
     log.debug("Deleting Animal with id {}", id);
     if (!animalRepository.existsById(id)) {
-      throw new DataNotFoundException("Animal not found in Database for id: " + id);
+      throw new DataNotFoundException(NOT_FOUND_BY_ID_MSG + id);
     }
     animalRepository.deleteById(id);
     log.debug("Deleted Animal with id {}", id);
