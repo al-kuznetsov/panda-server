@@ -53,8 +53,9 @@ public class PersistentDataProviderService {
     Spot spot1 = new Spot();
     Point<C2D> point1 = DSL.point(LOCAL_SRID, DSL.c(51.771959, 55.194175));
     spot1.setPoint(point1);
+    // home
     Spot spot2 = new Spot();
-    Point<C2D> point2 = DSL.point(LOCAL_SRID, DSL.c(51.771959, 55.194175));
+    Point<C2D> point2 = DSL.point(LOCAL_SRID, DSL.c(51.773059, 55.192671));
     spot2.setPoint(point2);
     return List.of(spot1, spot2);
   }

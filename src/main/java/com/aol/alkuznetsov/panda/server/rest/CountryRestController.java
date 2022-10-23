@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("${vars.api.version-url}")
+@RequestMapping("${vars.api.version-url}/countries")
 @RequiredArgsConstructor
 public class CountryRestController {
   private final CountryService countryService;
 
-  @GetMapping("/countries")
+  @GetMapping
   public List<CountryDto> findAll() {
     return countryService.findAll();
   }

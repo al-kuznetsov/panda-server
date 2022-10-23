@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("${vars.api.version-url}")
+@RequestMapping("${vars.api.version-url}/animal-types")
 @RequiredArgsConstructor
 public class AnimalTypeController {
   private final AnimalTypeService animalTypeService;
 
-  @GetMapping("/animal-types")
+  @GetMapping
   public List<AnimalTypeDto> findAll() {
     return animalTypeService.findAll();
   }

@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class MiscService {
+public class SpotService {
 
   private final SpotRepository spotRepository;
   private final SpotMapper spotMapper;
