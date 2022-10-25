@@ -21,6 +21,8 @@ spring:
     username: panda
     password: password
   jpa:
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.spatial.dialect.postgis.PostgisDialect

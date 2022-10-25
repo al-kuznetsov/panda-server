@@ -44,6 +44,8 @@ public class DatabasePopulationService {
       persistentDataProviderService.newListOfAnimals(true);
 
       persistentDataProviderService.newListOfSpots(true);
+
+      persistentDataProviderService.newListOfUsers(true);
     }
   }
 }

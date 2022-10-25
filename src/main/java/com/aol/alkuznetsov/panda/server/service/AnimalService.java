@@ -32,10 +32,7 @@ public class AnimalService {
   @Transactional(readOnly = true)
   public AnimalDto findById(Long id) {
     log.debug("Retrieving animal as AnimalDto by Id {}", id);
-    Animal animal =
-        animalRepository
-            .findById(id)
-            .orElseThrow(() -> new DataNotFoundException(NOT_FOUND_BY_ID_MSG + id));
+    Animal animal = animalRepository.findById(id).orElse(null);
     return animalMapper.toDto(animal);
   }
 

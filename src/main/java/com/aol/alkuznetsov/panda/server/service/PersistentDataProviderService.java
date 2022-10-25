@@ -15,8 +15,8 @@ import com.aol.alkuznetsov.panda.server.model.LocalityType;
 import com.aol.alkuznetsov.panda.server.model.Region;
 import com.aol.alkuznetsov.panda.server.model.RegionType;
 import com.aol.alkuznetsov.panda.server.model.Spot;
+import com.aol.alkuznetsov.panda.server.model.User;
 import com.aol.alkuznetsov.panda.server.repository.AddressTypeRepository;
-import com.aol.alkuznetsov.panda.server.repository.AnimalCriteriaRepository;
 import com.aol.alkuznetsov.panda.server.repository.AnimalRepository;
 import com.aol.alkuznetsov.panda.server.repository.AnimalStatusRepository;
 import com.aol.alkuznetsov.panda.server.repository.AnimalTypeRepository;
@@ -27,10 +27,12 @@ import com.aol.alkuznetsov.panda.server.repository.LocalityTypeRepository;
 import com.aol.alkuznetsov.panda.server.repository.RegionRepository;
 import com.aol.alkuznetsov.panda.server.repository.RegionTypeRepository;
 import com.aol.alkuznetsov.panda.server.repository.SpotRepository;
+import com.aol.alkuznetsov.panda.server.repository.UserRepository;
 import com.aol.alkuznetsov.panda.server.util.DebugUtils;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -55,7 +57,7 @@ public class PersistentDataProviderService {
   private final BreedRepository breedRepository;
   private final AnimalRepository animalRepository;
   private final SpotRepository spotRepository;
-  private final AnimalCriteriaRepository animalCriteriaRepository;
+  private final UserRepository userRepository;
 
   @Transactional
   public List<Country> newListOfCountries(boolean persist) {
@@ -331,6 +333,24 @@ public class PersistentDataProviderService {
       return savedSpots;
     } else {
       return spots;
+    }
+  }
+
+  @Transactional
+  public List<User> newListOfUsers(boolean persist) {
+    User admin =
+        User.builder()
+            .name("admin")
+            .email("admin@panda.com")
+            .jobTitle("admin")
+            .userCode(UUID.randomUUID().toString())
+            .build();
+    if (persist) {
+      User savedUser = userRepository.save(admin);
+      log.debug("Saved admin user to Database");
+      return List.of(savedUser);
+    } else {
+      return List.of(admin);
     }
   }
 }
