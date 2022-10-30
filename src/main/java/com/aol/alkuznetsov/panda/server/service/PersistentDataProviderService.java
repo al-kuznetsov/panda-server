@@ -5,7 +5,7 @@ import static com.aol.alkuznetsov.panda.server.constant.GisConst.LOCAL_SRID;
 import com.aol.alkuznetsov.panda.server.exception.DataNotFoundException;
 import com.aol.alkuznetsov.panda.server.model.AddressType;
 import com.aol.alkuznetsov.panda.server.model.Animal;
-import com.aol.alkuznetsov.panda.server.model.AnimalCriteria;
+import com.aol.alkuznetsov.panda.server.model.AnimalIndicators;
 import com.aol.alkuznetsov.panda.server.model.AnimalStatus;
 import com.aol.alkuznetsov.panda.server.model.AnimalType;
 import com.aol.alkuznetsov.panda.server.model.Breed;
@@ -258,8 +258,8 @@ public class PersistentDataProviderService {
     AnimalStatus deadStatus = animalStatusRepository.findByCode("DEAD").orElse(null);
     AnimalStatus strayStatus = animalStatusRepository.findByCode("STRAY").orElse(null);
 
-    AnimalCriteria criteria1 =
-        AnimalCriteria.builder().stress(1).sickness(1).trauma(1).mobility(1).tameness(5).build();
+    AnimalIndicators indicators1 =
+        AnimalIndicators.builder().stress(1).sickness(1).trauma(1).mobility(1).tameness(5).build();
     animals.add(
         Animal.builder()
             .name("Черный")
@@ -272,11 +272,11 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
-            .criteria(criteria1)
+            .indicators(indicators1)
             .build());
 
-    AnimalCriteria criteria2 =
-        AnimalCriteria.builder().stress(2).sickness(3).trauma(2).mobility(1).tameness(5).build();
+    AnimalIndicators indicators2 =
+        AnimalIndicators.builder().stress(2).sickness(3).trauma(2).mobility(1).tameness(5).build();
     animals.add(
         Animal.builder()
             .name(null)
@@ -287,7 +287,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
-            .criteria(criteria2)
+            .indicators(indicators2)
             .build());
 
     animals.add(

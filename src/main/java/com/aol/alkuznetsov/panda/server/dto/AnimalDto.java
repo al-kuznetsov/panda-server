@@ -18,5 +18,5 @@ public class AnimalDto {
   private AnimalTypeDto type;
   private BreedDto breed;
   private AnimalStatusDto status;
-  private AnimalCriteriaDto criteria;
+  private AnimalIndicatorsDto indicators;
 }

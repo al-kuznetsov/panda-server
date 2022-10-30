@@ -45,9 +45,9 @@ CREATE TABLE animal_status
     description varchar(1024)
 );
 
--- The criteria to consider when helping decision making
+-- The indicators to consider when helping decision making
 -- Rated from 1 to 5
-CREATE TABLE animal_criteria
+CREATE TABLE animal_indicators
 (
     id bigint PRIMARY KEY DEFAULT nextval('global_id_sequence'),
     stress integer,
@@ -71,11 +71,11 @@ CREATE TABLE animal
     type_id bigint NOT NULL,
     breed_id bigint,
     status_id bigint,
-    criteria_id bigint,
+    indicators_id bigint,
     CONSTRAINT fk_animal_type FOREIGN KEY (type_id) REFERENCES animal_type (id),
     CONSTRAINT fk_breed FOREIGN KEY (breed_id) REFERENCES breed (id),
     CONSTRAINT fk_animal_status FOREIGN KEY (status_id) REFERENCES animal_status (id),
-    CONSTRAINT fk_animal_criteria FOREIGN KEY (criteria_id) REFERENCES animal_criteria (id)
+    CONSTRAINT fk_animal_indicators FOREIGN KEY (indicators_id) REFERENCES animal_indicators (id)
 );
 
 CREATE TABLE animal_spot

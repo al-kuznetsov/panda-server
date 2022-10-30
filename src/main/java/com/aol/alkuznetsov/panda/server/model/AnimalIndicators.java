@@ -13,12 +13,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "animal_criteria")
+@Table(name = "animal_indicators")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnimalCriteria {
+public class AnimalIndicators {
 
   @Id
   @Column(name = "id")

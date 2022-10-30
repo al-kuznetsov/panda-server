@@ -72,6 +72,6 @@ public class Animal {
   private AnimalStatus status;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "criteria_id")
-  private AnimalCriteria criteria;
+  @JoinColumn(name = "indicators_id")
+  private AnimalIndicators indicators;
 }

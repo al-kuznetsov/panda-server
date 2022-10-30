@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class AnimalCriteriaDto {
+public class AnimalIndicatorsDto {
   private Long id;
   private Integer stress;
   private Integer sickness;
