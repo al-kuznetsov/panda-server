@@ -268,7 +268,7 @@ public class PersistentDataProviderService {
             .fullBio(
                 "Крупный, очень спокойный пес, "
                     + "живет у овощных ларьков рядом с магазином \"Олива\"")
-            .imageUrl(null)
+            .imageUrl("assets/images/animals/black.jpg")
             .active(true)
             .type(dogType)
             .status(strayStatus)
@@ -283,7 +283,7 @@ public class PersistentDataProviderService {
             .birthDate(LocalDate.of(2019, 1, 1))
             .description("Крупный длинноногий пес, активный, много передвигается, дружелюбный")
             .fullBio("Пес появляется преимущественно в 24-м микрорайоне")
-            .imageUrl(null)
+            .imageUrl("assets/images/animals/big-guy.jpg")
             .active(true)
             .type(dogType)
             .status(strayStatus)
@@ -299,7 +299,7 @@ public class PersistentDataProviderService {
                 "Собачка среднего размера (20 кг), черно-белого окраса, с коровьими глазами."
                     + "Панда найдена в 24-м микрорайоне, одиночка, дружелюбная и любопытная."
                     + "Большие черные пятна на глазах - отсюда и имя Панда.")
-            .imageUrl(null)
+            .imageUrl("assets/images/animals/panda.jpg")
             .active(false)
             .type(dogType)
             .status(deadStatus)
