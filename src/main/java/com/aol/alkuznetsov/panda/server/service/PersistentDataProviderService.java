@@ -268,7 +268,7 @@ public class PersistentDataProviderService {
             .fullBio(
                 "Крупный, очень спокойный пес, "
                     + "живет у овощных ларьков рядом с магазином \"Олива\"")
-            .imageUrl("assets/images/animals/black.jpg")
+            .imageUrl("assets/images/animals/Black.jpg")
             .active(true)
             .type(dogType)
             .status(strayStatus)
@@ -279,7 +279,7 @@ public class PersistentDataProviderService {
         AnimalIndicators.builder().stress(2).sickness(3).trauma(2).mobility(1).tameness(5).build();
     animals.add(
         Animal.builder()
-            .name(null)
+            .name("Черный")
             .birthDate(LocalDate.of(2019, 1, 1))
             .description("Крупный длинноногий пес, активный, много передвигается, дружелюбный")
             .fullBio("Пес появляется преимущественно в 24-м микрорайоне")
@@ -299,10 +299,130 @@ public class PersistentDataProviderService {
                 "Собачка среднего размера (20 кг), черно-белого окраса, с коровьими глазами."
                     + "Панда найдена в 24-м микрорайоне, одиночка, дружелюбная и любопытная."
                     + "Большие черные пятна на глазах - отсюда и имя Панда.")
-            .imageUrl("assets/images/animals/panda.jpg")
+            .imageUrl("assets/images/animals/Panda.jpg")
             .active(false)
             .type(dogType)
             .status(deadStatus)
+            .build());
+
+    animals.add(
+        Animal.builder()
+            .name("Гэри")
+            .birthDate(LocalDate.of(2012, 1, 1))
+            .description("Мелкий песик, пугливый, принимает еду, на ушах много клещей")
+            .fullBio("Здесь пока пусто")
+            .imageUrl("assets/images/animals/Gary.jpg")
+            .active(true)
+            .type(dogType)
+            .status(strayStatus)
+            .indicators(
+                AnimalIndicators.builder()
+                    .stress(2)
+                    .sickness(5)
+                    .trauma(2)
+                    .mobility(1)
+                    .tameness(5)
+                    .build())
+            .build());
+
+    animals.add(
+        Animal.builder()
+            .name("Малыш")
+            .birthDate(LocalDate.of(2022, 10, 1))
+            .description("Щенок, живет у дороги. Это опасно. Остался один.")
+            .fullBio("Здесь пока пусто")
+            .imageUrl("assets/images/animals/Baby.jpg")
+            .active(true)
+            .type(dogType)
+            .status(strayStatus)
+            .indicators(
+                AnimalIndicators.builder()
+                    .stress(1)
+                    .sickness(1)
+                    .trauma(1)
+                    .mobility(1)
+                    .tameness(5)
+                    .build())
+            .build());
+
+    animals.add(
+        Animal.builder()
+            .name("Нана")
+            .birthDate(null)
+            .description("Приземистая собака светлой окраски, шерсть длинная. Примерная высота 45 см.")
+            .fullBio("Здесь пока пусто")
+            .imageUrl("assets/images/animals/animal-placeholder.webp")
+            .active(true)
+            .type(dogType)
+            .status(strayStatus)
+            .indicators(
+                AnimalIndicators.builder()
+                    .stress(1)
+                    .sickness(1)
+                    .trauma(1)
+                    .mobility(1)
+                    .tameness(5)
+                    .build())
+            .build());
+
+    animals.add(
+        Animal.builder()
+            .name("Граф")
+            .birthDate(LocalDate.of(2019, 10, 1))
+            .description("Послушный молодой пес среднего размера.")
+            .fullBio("Здесь пока пусто")
+            .imageUrl("assets/images/animals/Graf.jpg")
+            .active(true)
+            .type(dogType)
+            .status(strayStatus)
+            .indicators(
+                AnimalIndicators.builder()
+                    .stress(1)
+                    .sickness(3)
+                    .trauma(1)
+                    .mobility(1)
+                    .tameness(5)
+                    .build())
+            .build());
+
+    animals.add(
+        Animal.builder()
+            .name("Тупик")
+            .birthDate(null)
+            .description("Игривый, подвижный пес-глупыш. Пробует приставать ко всем подряд.")
+            .fullBio("Здесь пока пусто")
+            .imageUrl("assets/images/animals/animal-placeholder.webp")
+            .active(true)
+            .type(dogType)
+            .status(strayStatus)
+            .indicators(
+                AnimalIndicators.builder()
+                    .stress(1)
+                    .sickness(3)
+                    .trauma(1)
+                    .mobility(1)
+                    .tameness(5)
+                    .build())
+            .build());
+
+    animals.add(
+        Animal.builder()
+            .name("Герда")
+            .birthDate(null)
+            .description("НУЖНА ПОМОЩЬ. Собака истощена, кожа да кости. Мало двигается.")
+            .fullBio("Здесь пока пусто")
+            .imageUrl("assets/images/animals/Gerda.jpg")
+            .active(true)
+            .type(dogType)
+            .status(strayStatus)
+            .indicators(
+                AnimalIndicators.builder()
+                    .stress(5)
+                    .sickness(5)
+                    .trauma(1)
+                    .mobility(3)
+                    .tameness(5)
+                    .build())
             .build());
 
     if (persist) {
