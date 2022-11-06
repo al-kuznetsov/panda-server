@@ -2,6 +2,7 @@ package com.aol.alkuznetsov.panda.server.service;
 
 import static com.aol.alkuznetsov.panda.server.constant.GisConst.LOCAL_SRID;
 
+import com.aol.alkuznetsov.panda.server.constant.ResourceConst;
 import com.aol.alkuznetsov.panda.server.exception.DataNotFoundException;
 import com.aol.alkuznetsov.panda.server.model.AddressType;
 import com.aol.alkuznetsov.panda.server.model.Animal;
@@ -255,6 +256,7 @@ public class PersistentDataProviderService {
     List<Animal> animals = new ArrayList<>(3);
 
     AnimalType dogType = animalTypeRepository.findByCode("DOG").orElse(null);
+    AnimalType catType = animalTypeRepository.findByCode("CAT").orElse(null);
     AnimalStatus deadStatus = animalStatusRepository.findByCode("DEAD").orElse(null);
     AnimalStatus strayStatus = animalStatusRepository.findByCode("STRAY").orElse(null);
 
@@ -310,7 +312,7 @@ public class PersistentDataProviderService {
             .name("Гэри")
             .birthDate(LocalDate.of(2012, 1, 1))
             .description("Мелкий песик, пугливый, принимает еду, на ушах много клещей")
-            .fullBio("Здесь пока пусто")
+            .fullBio(ResourceConst.EMPTY_STRING_PLACEHOLDER)
             .imageUrl("assets/images/animals/Gary.jpg")
             .active(true)
             .type(dogType)
@@ -330,7 +332,7 @@ public class PersistentDataProviderService {
             .name("Малыш")
             .birthDate(LocalDate.of(2022, 10, 1))
             .description("Щенок, живет у дороги. Это опасно. Остался один.")
-            .fullBio("Здесь пока пусто")
+            .fullBio(ResourceConst.EMPTY_STRING_PLACEHOLDER)
             .imageUrl("assets/images/animals/Baby.jpg")
             .active(true)
             .type(dogType)
@@ -349,9 +351,10 @@ public class PersistentDataProviderService {
         Animal.builder()
             .name("Нана")
             .birthDate(null)
-            .description("Приземистая собака светлой окраски, шерсть длинная. Примерная высота 45 см.")
-            .fullBio("Здесь пока пусто")
-            .imageUrl("assets/images/animals/animal-placeholder.webp")
+            .description(
+                "Приземистая собака светлой окраски, шерсть длинная. Примерная высота 45 см.")
+            .fullBio(ResourceConst.EMPTY_STRING_PLACEHOLDER)
+            .imageUrl(ResourceConst.DEFAULT_ANIMAL_PLACEHOLDER_IMG_URL)
             .active(true)
             .type(dogType)
             .status(strayStatus)
@@ -370,7 +373,7 @@ public class PersistentDataProviderService {
             .name("Граф")
             .birthDate(LocalDate.of(2019, 10, 1))
             .description("Послушный молодой пес среднего размера.")
-            .fullBio("Здесь пока пусто")
+            .fullBio(ResourceConst.EMPTY_STRING_PLACEHOLDER)
             .imageUrl("assets/images/animals/Graf.jpg")
             .active(true)
             .type(dogType)
@@ -390,8 +393,8 @@ public class PersistentDataProviderService {
             .name("Тупик")
             .birthDate(null)
             .description("Игривый, подвижный пес-глупыш. Пробует приставать ко всем подряд.")
-            .fullBio("Здесь пока пусто")
-            .imageUrl("assets/images/animals/animal-placeholder.webp")
+            .fullBio(ResourceConst.EMPTY_STRING_PLACEHOLDER)
+            .imageUrl(ResourceConst.DEFAULT_ANIMAL_PLACEHOLDER_IMG_URL)
             .active(true)
             .type(dogType)
             .status(strayStatus)
@@ -410,7 +413,7 @@ public class PersistentDataProviderService {
             .name("Герда")
             .birthDate(null)
             .description("НУЖНА ПОМОЩЬ. Собака истощена, кожа да кости. Мало двигается.")
-            .fullBio("Здесь пока пусто")
+            .fullBio(ResourceConst.EMPTY_STRING_PLACEHOLDER)
             .imageUrl("assets/images/animals/Gerda.jpg")
             .active(true)
             .type(dogType)
@@ -421,6 +424,175 @@ public class PersistentDataProviderService {
                     .sickness(5)
                     .trauma(1)
                     .mobility(3)
+                    .tameness(5)
+                    .build())
+            .build());
+
+    animals.add(
+        Animal.builder()
+            .name("Расти")
+            .birthDate(null)
+            .description(
+                "Рыжая пушистая собака. Беременная. Ходит в стае их трех других бездомных собак")
+            .fullBio(ResourceConst.EMPTY_STRING_PLACEHOLDER)
+            .imageUrl(ResourceConst.DEFAULT_ANIMAL_PLACEHOLDER_IMG_URL)
+            .active(true)
+            .type(dogType)
+            .status(strayStatus)
+            .indicators(
+                AnimalIndicators.builder()
+                    .stress(1)
+                    .sickness(3)
+                    .trauma(1)
+                    .mobility(1)
+                    .tameness(5)
+                    .build())
+            .build());
+
+    animals.add(
+        Animal.builder()
+            .name("Ушастик")
+            .birthDate(null)
+            .description(
+                "НУЖНА ПОМОЩЬ. Собака не опирается на лапу, повреждена передняя левая лапа."
+                    + "На ухе желтая бирка, стерилизована и привита.")
+            .fullBio(ResourceConst.EMPTY_STRING_PLACEHOLDER)
+            .imageUrl("assets/images/animals/Ushastik.jpg")
+            .active(true)
+            .type(dogType)
+            .status(strayStatus)
+            .indicators(
+                AnimalIndicators.builder()
+                    .stress(2)
+                    .sickness(1)
+                    .trauma(4)
+                    .mobility(2)
+                    .tameness(5)
+                    .build())
+            .build());
+
+    animals.add(
+        Animal.builder()
+            .name("Шарик")
+            .birthDate(null)
+            .description(
+                "НУЖНА ПЕРЕДЕРЖКА. Маленький щенок, прибился к местному магазину Магнит."
+                    + "Он один сейчас, нужна обработка и передержка для поиска хозяев")
+            .fullBio(ResourceConst.EMPTY_STRING_PLACEHOLDER)
+            .imageUrl("assets/images/animals/Sharik.jpg")
+            .active(true)
+            .type(dogType)
+            .status(strayStatus)
+            .indicators(
+                AnimalIndicators.builder()
+                    .stress(1)
+                    .sickness(1)
+                    .trauma(1)
+                    .mobility(1)
+                    .tameness(5)
+                    .build())
+            .build());
+
+    animals.add(
+        Animal.builder()
+            .name("Жуля")
+            .birthDate(null)
+            .description(
+                "ПОИСК ХОЗЯЕВ. Аккуратная собачка среднего размера. Пожойдет как вариант в квартиру")
+            .fullBio(ResourceConst.EMPTY_STRING_PLACEHOLDER)
+            .imageUrl("assets/images/animals/Zhulya.jpg")
+            .active(true)
+            .type(dogType)
+            .status(strayStatus)
+            .indicators(
+                AnimalIndicators.builder()
+                    .stress(1)
+                    .sickness(1)
+                    .trauma(1)
+                    .mobility(1)
+                    .tameness(5)
+                    .build())
+            .build());
+
+    animals.add(
+        Animal.builder()
+            .name("Гавик")
+            .birthDate(null)
+            .description(
+                "НУЖНА ПОМОЩЬ. Звонкий песик, похоже, что приболел. Нужне визит к ветеринару.")
+            .fullBio(ResourceConst.EMPTY_STRING_PLACEHOLDER)
+            .imageUrl(ResourceConst.DEFAULT_ANIMAL_PLACEHOLDER_IMG_URL)
+            .active(true)
+            .type(dogType)
+            .status(strayStatus)
+            .indicators(
+                AnimalIndicators.builder()
+                    .stress(1)
+                    .sickness(4)
+                    .trauma(1)
+                    .mobility(1)
+                    .tameness(5)
+                    .build())
+            .build());
+
+    animals.add(
+        Animal.builder()
+            .name("Глаша")
+            .birthDate(null)
+            .description(
+                "НУЖНА ПОМОЩЬ. Нужно вылечить и пристроить кошку. Холмает на задные лапы."
+                    + "Возможно, выпала и окна")
+            .fullBio(ResourceConst.EMPTY_STRING_PLACEHOLDER)
+            .imageUrl("assets/images/animals/Glasha-cat.jpg")
+            .active(true)
+            .type(catType)
+            .status(strayStatus)
+            .indicators(
+                AnimalIndicators.builder()
+                    .stress(1)
+                    .sickness(1)
+                    .trauma(3)
+                    .mobility(1)
+                    .tameness(5)
+                    .build())
+            .build());
+
+    animals.add(
+        Animal.builder()
+            .name("Томми")
+            .birthDate(null)
+            .description("Томми красивый черрый кот, живет на трубах у рынка.")
+            .fullBio(ResourceConst.EMPTY_STRING_PLACEHOLDER)
+            .imageUrl(ResourceConst.DEFAULT_ANIMAL_PLACEHOLDER_IMG_URL)
+            .active(true)
+            .type(catType)
+            .status(strayStatus)
+            .indicators(
+                AnimalIndicators.builder()
+                    .stress(1)
+                    .sickness(1)
+                    .trauma(3)
+                    .mobility(1)
+                    .tameness(5)
+                    .build())
+            .build());
+
+    animals.add(
+        Animal.builder()
+            .name("Чумазик")
+            .birthDate(null)
+            .description("НУЖНА ПОМОЩЬ. Кошечка болеет, грязная, неухоженная. Нужно лечение.")
+            .fullBio(ResourceConst.EMPTY_STRING_PLACEHOLDER)
+            .imageUrl("assets/images/animals/Chumazik.jpg")
+            .active(true)
+            .type(catType)
+            .status(strayStatus)
+            .indicators(
+                AnimalIndicators.builder()
+                    .stress(1)
+                    .sickness(1)
+                    .trauma(3)
+                    .mobility(1)
                     .tameness(5)
                     .build())
             .build());
@@ -458,19 +630,45 @@ public class PersistentDataProviderService {
 
   @Transactional
   public List<User> newListOfUsers(boolean persist) {
-    User admin =
+
+    List<User> users = new ArrayList<>();
+
+    users.add(
         User.builder()
             .name("admin")
             .email("admin@panda.com")
             .jobTitle("admin")
+            .phone(ResourceConst.DEFAULT_USER_PHONE_NUMBER)
+            .imageUrl(ResourceConst.DEFAULT_USER_AVATAR_URL)
             .userCode(UUID.randomUUID().toString())
-            .build();
+            .build());
+
+    users.add(
+        User.builder()
+            .name("Мария")
+            .email("mary@panda.com")
+            .jobTitle("user")
+            .phone(ResourceConst.DEFAULT_USER_PHONE_NUMBER)
+            .imageUrl(ResourceConst.DEFAULT_USER_AVATAR_URL)
+            .userCode(UUID.randomUUID().toString())
+            .build());
+
+    users.add(
+        User.builder()
+            .name("Женя")
+            .email("evgeniya@panda.com")
+            .jobTitle("user")
+            .phone(ResourceConst.DEFAULT_USER_PHONE_NUMBER)
+            .imageUrl(ResourceConst.DEFAULT_USER_AVATAR_URL)
+            .userCode(UUID.randomUUID().toString())
+            .build());
+
     if (persist) {
-      User savedUser = userRepository.save(admin);
-      log.debug("Saved admin user to Database");
-      return List.of(savedUser);
+      List<User> savedUsers = userRepository.saveAll(users);
+      // TODO: add debug logging
+      return savedUsers;
     } else {
-      return List.of(admin);
+      return users;
     }
   }
 }

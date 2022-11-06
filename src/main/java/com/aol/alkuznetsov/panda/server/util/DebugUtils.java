@@ -19,6 +19,7 @@ import org.apache.commons.lang3.tuple.ImmutableTriple;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DebugUtils {
+  // TODO: Refactor utils to use Message Supplier and generify
   public static String getMessageWithAnimalsList(String message, List<Animal> animals) {
     List<ImmutableTriple<Long, String, String>> triples =
         animals.stream()

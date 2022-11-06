@@ -5,10 +5,10 @@ import com.aol.alkuznetsov.panda.server.exception.DataNotFoundException;
 import com.aol.alkuznetsov.panda.server.mapper.AnimalMapper;
 import com.aol.alkuznetsov.panda.server.model.Animal;
 import com.aol.alkuznetsov.panda.server.repository.AnimalRepository;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,11 +22,15 @@ public class AnimalService {
   private final AnimalMapper animalMapper;
 
   @Transactional(readOnly = true)
-  public List<AnimalDto> findAll() {
-    log.debug("Retrieving the list of all animals as AnimalDtos");
-    return animalRepository.findAll().stream()
-        .map(animalMapper::toDto)
-        .collect(Collectors.toList());
+  public Page<AnimalDto> findAll(Pageable pageable) {
+    log.debug("Retrieving a Page of all animals as AnimalDtos");
+    return animalRepository.findAll(pageable).map(animalMapper::toDto);
+  }
+
+  @Transactional(readOnly = true)
+  public Page<AnimalDto> findAllByTypeCode(String code, Pageable pageable) {
+    log.debug("Retrieving a Page of animals with animal type code: {}", code);
+    return animalRepository.findAllByTypeCode(code, pageable).map(animalMapper::toDto);
   }
 
   @Transactional(readOnly = true)

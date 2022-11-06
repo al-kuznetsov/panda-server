@@ -2,8 +2,10 @@ package com.aol.alkuznetsov.panda.server.rest;
 
 import com.aol.alkuznetsov.panda.server.dto.AnimalDto;
 import com.aol.alkuznetsov.panda.server.service.AnimalService;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +22,13 @@ public class AnimalRestController {
   private final AnimalService animalService;
 
   @GetMapping
-  public List<AnimalDto> findAll() {
-    return animalService.findAll();
+  public Page<AnimalDto> findAll(Pageable pageable) {
+    return animalService.findAll(pageable);
+  }
+
+  @GetMapping("/findAllByTypeCode")
+  public Page<AnimalDto> findAllByTypeCode(@Param("code") String code, Pageable pageable) {
+    return animalService.findAllByTypeCode(code, pageable);
   }
 
   @GetMapping("/{id}")
