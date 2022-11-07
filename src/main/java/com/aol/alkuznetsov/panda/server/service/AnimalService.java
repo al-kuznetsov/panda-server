@@ -34,6 +34,16 @@ public class AnimalService {
   }
 
   @Transactional(readOnly = true)
+  public Page<AnimalDto> findAllByNameOrDescriptionContainingIgnoreCase(
+      String searchKey, Pageable pageable) {
+    log.debug(
+        "Retrieving a Page of animals with given searchKey in name or description: {}", searchKey);
+    return animalRepository
+        .findAllByNameOrDescriptionContainingIgnoreCase(searchKey, searchKey, pageable)
+        .map(animalMapper::toDto);
+  }
+
+  @Transactional(readOnly = true)
   public AnimalDto findById(Long id) {
     log.debug("Retrieving animal as AnimalDto by Id {}", id);
     Animal animal = animalRepository.findById(id).orElse(null);

@@ -31,6 +31,12 @@ public class AnimalRestController {
     return animalService.findAllByTypeCode(code, pageable);
   }
 
+  @GetMapping("/findAllByNameOrDescriptionContainingIgnoreCase")
+  public Page<AnimalDto> findAllByNameOrDescriptionContainingIgnoreCase(
+      @Param("searchKey") String searchKey, Pageable pageable) {
+    return animalService.findAllByNameOrDescriptionContainingIgnoreCase(searchKey, pageable);
+  }
+
   @GetMapping("/{id}")
   public AnimalDto find(@PathVariable Long id) {
     return animalService.findById(id);

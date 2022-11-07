@@ -4,6 +4,7 @@ import com.aol.alkuznetsov.panda.server.dto.UserDto;
 import com.aol.alkuznetsov.panda.server.service.UserService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,12 @@ public class UserRestController {
   @GetMapping
   public List<UserDto> findAll() {
     return userService.findAll();
+  }
+
+  @GetMapping("/findAllByNameOrJobTitleContainingIgnoreCase")
+  public List<UserDto> findAllByNameOrJobTitleContainingIgnoreCase(
+      @Param("searchKey") String searchKey) {
+    return userService.findAllByNameOrJobTitleContainingIgnoreCase(searchKey);
   }
 
   @GetMapping("/{id}")

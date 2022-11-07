@@ -29,6 +29,15 @@ public class UserService {
   }
 
   @Transactional(readOnly = true)
+  public List<UserDto> findAllByNameOrJobTitleContainingIgnoreCase(String searchKey) {
+    log.debug(
+        "Retrieving the list of all users with given searchKey in name or jobTitle: {}", searchKey);
+    return userRepository.findAllByNameOrJobTitleContainingIgnoreCase(searchKey, searchKey).stream()
+        .map(userMapper::toDto)
+        .collect(Collectors.toList());
+  }
+
+  @Transactional(readOnly = true)
   public UserDto findById(Long id) {
     log.debug("Retrieving user as UseDto by Id {}", id);
     User user = userRepository.findById(id).orElse(null);
