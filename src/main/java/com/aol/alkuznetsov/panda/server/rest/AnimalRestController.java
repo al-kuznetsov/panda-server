@@ -38,7 +38,7 @@ public class AnimalRestController {
   }
 
   @GetMapping("/{id}")
-  public AnimalDto find(@PathVariable Long id) {
+  public AnimalDto findById(@PathVariable Long id) {
     return animalService.findById(id);
   }
 
