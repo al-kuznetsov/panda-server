@@ -631,7 +631,7 @@ public class PersistentDataProviderService {
             .indicators(indicators1)
             .build());
 
-    AnimalIndicators indicators2 =
+    AnimalIndicators indicators3 =
         AnimalIndicators.builder().stress(2).sickness(3).trauma(2).mobility(1).tameness(5).build();
     animals.add(
         Animal.builder()
