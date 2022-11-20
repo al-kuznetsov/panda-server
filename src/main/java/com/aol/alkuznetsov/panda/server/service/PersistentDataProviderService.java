@@ -599,11 +599,11 @@ public class PersistentDataProviderService {
 
     animals.add(
         Animal.builder()
-            .name("Чумазик")
+            .name("Ксюша")
             .birthDate(null)
-            .description("НУЖНА ПОМОЩЬ. Кошечка болеет, грязная, неухоженная. Нужно лечение.")
+            .description("Вот такая трехцветняа красотка ОЧЕНЬ нуждается в заботливом хозяине. Пушистая, послушная, ласковая")
             .fullBio(ResourceConst.EMPTY_STRING_PLACEHOLDER)
-            .imageUrl("assets/images/animals/Chumazik.jpg")
+            .imageUrl((ResourceConst.DEFAULT_ANIMAL_PLACEHOLDER_IMG_URL)
             .active(true)
             .type(catType)
             .status(strayStatus)
@@ -775,7 +775,7 @@ public class PersistentDataProviderService {
             .fullBio("Кот в плохом состоянии. Вероятно он болен! Другие коты его обижают! Помогите котику!")
             .imageUrl("assets/images/animals/vasya.jpg")
             .active(true)
-            .type(dogType)
+            .type(catType)
             .status(strayStatus)
             .indicators(
                 AnimalIndicators.builder()
@@ -834,13 +834,12 @@ public class PersistentDataProviderService {
 
     animals.add(
         Animal.builder()
-            .name("Шарик")
+            .name("Бобби")
             .birthDate(null)
-            .description(
-                "НУЖНА ПЕРЕДЕРЖКА. Маленький щенок, прибился к местному магазину Магнит."
-                    + "Он один сейчас, нужна обработка и передержка для поиска хозяев")
-            .fullBio(ResourceConst.EMPTY_STRING_PLACEHOLDER)
-            .imageUrl("assets/images/animals/Sharik.jpg")
+            .description("Маленький светлый щенок ищет хозяев или передержку")
+            .fullBio("Найден щенок. Он истощён. Держать дома его не смогут, люди снимают квартиру хозяйка против."
+                +" Срочно ищем человека, который возьмёт его в добрые руки. Или его опять ждёт улица...")
+            .imageUrl(ResourceConst.DEFAULT_ANIMAL_PLACEHOLDER_IMG_URL)
             .active(true)
             .type(dogType)
             .status(strayStatus)
