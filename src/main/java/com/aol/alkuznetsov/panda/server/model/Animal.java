@@ -48,6 +48,7 @@ public class Animal {
   @Column(name = "image_url", length = 512)
   private String imageUrl;
 
+  @Builder.Default
   @Column(name = "active")
   private Boolean active = false;
 

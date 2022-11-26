@@ -603,7 +603,7 @@ public class PersistentDataProviderService {
             .birthDate(null)
             .description("Вот такая трехцветняа красотка ОЧЕНЬ нуждается в заботливом хозяине. Пушистая, послушная, ласковая")
             .fullBio(ResourceConst.EMPTY_STRING_PLACEHOLDER)
-            .imageUrl((ResourceConst.DEFAULT_ANIMAL_PLACEHOLDER_IMG_URL)
+            .imageUrl(ResourceConst.DEFAULT_ANIMAL_PLACEHOLDER_IMG_URL)
             .active(true)
             .type(catType)
             .status(strayStatus)
@@ -635,7 +635,7 @@ public class PersistentDataProviderService {
         AnimalIndicators.builder().stress(2).sickness(3).trauma(2).mobility(1).tameness(5).build();
     animals.add(
         Animal.builder()
-            .name("Вафля")
+            .name("Виталя")
             .birthDate(LocalDate.of(2022, 1, 1))
             .description("ПОСТ ПО ПРОСЬБЕ.Найден щенок подросток , задние лапы волочит,наверное сбила машина")
             .fullBio("Карачи! ТК Муравейник!Помогите с транспортировкой и лечением щенка. Звонить по телефону +799999999999")
@@ -643,7 +643,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
-            .indicators(indicators2)
+            .indicators(indicators3)
             .build());
 
     animals.add(
