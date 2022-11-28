@@ -21,7 +21,7 @@ public class StartupService implements ApplicationRunner {
   @Override
   public void run(ApplicationArguments args) {
     log.info("StartupService runs");
-    databasePopulationService.populate();
+    //databasePopulationService.populate();
     log.info("StartupService finished");
   }
 }

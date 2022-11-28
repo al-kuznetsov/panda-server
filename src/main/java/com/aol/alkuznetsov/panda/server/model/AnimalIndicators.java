@@ -1,5 +1,10 @@
 package com.aol.alkuznetsov.panda.server.model;
 
+import com.aol.alkuznetsov.panda.server.enums.AggressionLevel;
+import com.aol.alkuznetsov.panda.server.enums.AppetiteLevel;
+import com.aol.alkuznetsov.panda.server.enums.BleedingLevel;
+import com.aol.alkuznetsov.panda.server.enums.ConsciousnessLevel;
+import com.aol.alkuznetsov.panda.server.enums.MobilityLossLevel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,18 +31,48 @@ public class AnimalIndicators {
   @SequenceGenerator(name = "global_id_sequence", allocationSize = 5)
   private Long id;
 
-  @Column(name = "stress")
-  private Integer stress;
+  @Column(name = "age")
+  private Integer age;
 
-  @Column(name = "sickness")
-  private Integer sickness;
+  @Column(name = "is_infant")
+  private Boolean isInfant;
 
-  @Column(name = "trauma")
-  private Integer trauma;
+  @Column(name = "consciousness_level")
+  private ConsciousnessLevel consciousnessLevel;
+  
+  @Column(name = "height")
+  private Double height;
+  
+  @Column(name = "breathing_rate")
+  private Integer breathingRate;
+  
+  @Column(name = "heart_rate")
+  private Integer heartRate;
+  
+  @Column(name = "bleeding_level")
+  private BleedingLevel bleedingLevel;
+  
+  @Column(name = "body_temperature")
+  private Double bodyTemperature;
+  
+  @Column(name = "severe_damage_count")
+  private Integer severeDamageCount;
+  
+  @Column(name = "mild_damage_count")
+  private Integer mildDamageCount;
 
-  @Column(name = "mobility")
-  private Integer mobility;
+  @Column(name = "mobility_loss_level")
+  private MobilityLossLevel mobilityLossLevel;
+  
+  @Column(name = "appetite_level")
+  private AppetiteLevel appetiteLevel;
 
-  @Column(name = "tameness")
-  private Integer tameness;
+  @Column(name = "has_symptoms")
+  private Boolean hasSymptoms;
+  
+  @Column(name = "is_pregnant")
+  private Boolean isPregnant;
+  
+  @Column(name = "aggression_level")
+  private AggressionLevel aggressionLevel;
 }

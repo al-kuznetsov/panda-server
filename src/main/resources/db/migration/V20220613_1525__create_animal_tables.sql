@@ -46,15 +46,35 @@ CREATE TABLE animal_status
 );
 
 -- The indicators to consider when helping decision making
--- Rated from 1 to 5
+-- These are supposed to be local criteria in vector optimisation algo
+-- a.k.a multi-objective optimisation
 CREATE TABLE animal_indicators
 (
     id bigint PRIMARY KEY DEFAULT nextval('global_id_sequence'),
-    stress integer,
-    sickness integer,
-    trauma integer,
-    mobility integer,
-    tameness integer
+    age integer,
+    is_infant boolean,
+    consciousness_level real,
+    height real,
+    breathing_rate integer,
+    heart_rate integer,
+    bleeding_level real,
+    body_temperature real,
+    severe_damage_count integer,
+    mild_damage_count integer,
+    mobility_loss_level real,
+    appetite_level real,
+    has_symptoms boolean,
+    is_pregnant boolean,
+    aggression_level real    
+);
+
+CREATE TABLE sex
+(
+    id bigint PRIMARY KEY DEFAULT nextval('global_id_sequence'),
+    code varchar(256) NOT NULL,
+    name varchar(256) NOT NULL,
+    description varchar(1024),
+    image_url varchar(512)
 );
 
 CREATE TABLE animal
@@ -72,10 +92,12 @@ CREATE TABLE animal
     breed_id bigint,
     status_id bigint,
     indicators_id bigint,
+    sex_id bigint,
     CONSTRAINT fk_animal_type FOREIGN KEY (type_id) REFERENCES animal_type (id),
     CONSTRAINT fk_breed FOREIGN KEY (breed_id) REFERENCES breed (id),
     CONSTRAINT fk_animal_status FOREIGN KEY (status_id) REFERENCES animal_status (id),
-    CONSTRAINT fk_animal_indicators FOREIGN KEY (indicators_id) REFERENCES animal_indicators (id)
+    CONSTRAINT fk_animal_indicators FOREIGN KEY (indicators_id) REFERENCES animal_indicators (id),
+    CONSTRAINT fk_sex FOREIGN KEY (sex_id) REFERENCES sex (id)
 );
 
 CREATE TABLE animal_spot

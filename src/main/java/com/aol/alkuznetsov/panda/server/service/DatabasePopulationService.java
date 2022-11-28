@@ -24,28 +24,28 @@ public class DatabasePopulationService {
   @Value("${vars.startup.init-sample-data}")
   private Boolean isInitSampleData;
 
-  @Transactional
-  public void populate() {
-    log.info("Populating Database with data at startup");
-
-    if (Boolean.TRUE.equals(isInitSampleData)) {
-
-      log.info("Saving sample data to the database");
-
-      persistentDataProviderService.newListOfCountries(true);
-      persistentDataProviderService.newListOfRegionTypes(true);
-      persistentDataProviderService.newListOfRegions(true);
-      persistentDataProviderService.newListOfLocalityTypes(true);
-      persistentDataProviderService.newListOfLocalities(true);
-      persistentDataProviderService.newListOfAddressType(true);
-      persistentDataProviderService.newListOfAnimalType(true);
-      persistentDataProviderService.newListOfBreed(true);
-      persistentDataProviderService.newListOfAnimalStatus(true);
-      persistentDataProviderService.newListOfAnimals(true);
-
-      persistentDataProviderService.newListOfSpots(true);
-
-      persistentDataProviderService.newListOfUsers(true);
-    }
-  }
+//  @Transactional
+//  public void populate() {
+//    log.info("Populating Database with data at startup");
+//
+//    if (Boolean.TRUE.equals(isInitSampleData)) {
+//
+//      log.info("Saving sample data to the database");
+//
+//      persistentDataProviderService.newListOfCountries(true);
+//      persistentDataProviderService.newListOfRegionTypes(true);
+//      persistentDataProviderService.newListOfRegions(true);
+//      persistentDataProviderService.newListOfLocalityTypes(true);
+//      persistentDataProviderService.newListOfLocalities(true);
+//      persistentDataProviderService.newListOfAddressType(true);
+//      persistentDataProviderService.newListOfAnimalType(true);
+//      persistentDataProviderService.newListOfBreed(true);
+//      persistentDataProviderService.newListOfAnimalStatus(true);
+//      persistentDataProviderService.newListOfAnimals(true);
+//
+//      persistentDataProviderService.newListOfSpots(true);
+//
+//      persistentDataProviderService.newListOfUsers(true);
+//    }
+//  }
 }
