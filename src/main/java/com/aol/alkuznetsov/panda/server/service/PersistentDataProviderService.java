@@ -3,6 +3,7 @@ package com.aol.alkuznetsov.panda.server.service;
 import static com.aol.alkuznetsov.panda.server.constant.GisConst.LOCAL_SRID;
 
 import com.aol.alkuznetsov.panda.server.constant.ResourceConst;
+import com.aol.alkuznetsov.panda.server.enums.ConsciousnessLevel;
 import com.aol.alkuznetsov.panda.server.exception.DataNotFoundException;
 import com.aol.alkuznetsov.panda.server.model.AddressType;
 import com.aol.alkuznetsov.panda.server.model.Animal;
@@ -34,6 +35,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -249,6 +251,14 @@ public class PersistentDataProviderService {
 //    } else {
 //      return addressTypes;
 //    }
+//  }
+//  
+//  private AnimalIndicators createAnimalIndicators() {
+//    return AnimalIndicators.builder()
+//        .age(ThreadLocalRandom.current().nextInt(1, 240))
+//        .isInfant(ThreadLocalRandom.current().nextBoolean())
+//        .consciousnessLevel(ConsciousnessLevel.CONSCIOUS)
+//        .build();
 //  }
 //
 //  @Transactional(readOnly = true)

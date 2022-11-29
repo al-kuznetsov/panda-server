@@ -1,11 +1,6 @@
 package com.aol.alkuznetsov.panda.server.dto;
 
-import com.aol.alkuznetsov.panda.server.enums.AggressionLevel;
 import com.aol.alkuznetsov.panda.server.enums.AppetiteLevel;
-import com.aol.alkuznetsov.panda.server.enums.BleedingLevel;
-import com.aol.alkuznetsov.panda.server.enums.ConsciousnessLevel;
-import com.aol.alkuznetsov.panda.server.enums.MobilityLossLevel;
-import javax.persistence.Column;
 import lombok.Builder;
 import lombok.Data;
 
