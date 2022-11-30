@@ -1,5 +1,8 @@
 package com.aol.alkuznetsov.panda.server.enums;
 
+import com.aol.alkuznetsov.panda.server.constant.Numbers;
+import com.aol.alkuznetsov.panda.server.util.CreationUtils;
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -7,9 +10,13 @@ import lombok.Getter;
 @Getter
 public enum BleedingLevel {
   
-  HEAVY(1.0),
-  LIGHT(0.5),
-  NO(0.0);
+  HEAVY(Numbers.ONE),
+  LIGHT(Numbers.ONE_HALF),
+  NO(Numbers.ZERO);
   
-  private double level;
+  private BigDecimal level;
+  
+  public static BleedingLevel getRandomBleedingLevel() {
+    return CreationUtils.getRandomElement(BleedingLevel.values());
+  }
 }

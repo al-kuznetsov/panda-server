@@ -1,5 +1,8 @@
 package com.aol.alkuznetsov.panda.server.enums;
 
+import com.aol.alkuznetsov.panda.server.constant.Numbers;
+import com.aol.alkuznetsov.panda.server.util.CreationUtils;
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -7,9 +10,13 @@ import lombok.Getter;
 @Getter
 public enum ConsciousnessLevel {
   
-  UNCONSCIOUS(1.0),
-  DEPRESSED(0.5),
-  CONSCIOUS(0.0);
+  UNCONSCIOUS(Numbers.ONE),
+  DEPRESSED(Numbers.ONE_HALF),
+  CONSCIOUS(Numbers.ZERO);
   
-  private double level;
+  private BigDecimal level;
+  
+  public static ConsciousnessLevel getRandomConsiousnessLevel() {
+    return CreationUtils.getRandomElement(ConsciousnessLevel.values());
+  }
 }

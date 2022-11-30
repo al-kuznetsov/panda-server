@@ -18,5 +18,6 @@ public class AnimalDto {
   private AnimalTypeDto type;
   private BreedDto breed;
   private AnimalStatusDto status;
+  private SexDto sex;
   private AnimalIndicatorsDto indicators;
 }

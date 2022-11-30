@@ -71,6 +71,10 @@ public class Animal {
   @ManyToOne
   @JoinColumn(name = "status_id")
   private AnimalStatus status;
+  
+  @ManyToOne
+  @JoinColumn(name = "sex_id")
+  private Sex sex;
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "indicators_id")

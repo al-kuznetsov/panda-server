@@ -1,5 +1,8 @@
 package com.aol.alkuznetsov.panda.server.enums;
 
+import com.aol.alkuznetsov.panda.server.constant.Numbers;
+import com.aol.alkuznetsov.panda.server.util.CreationUtils;
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -7,10 +10,13 @@ import lombok.Getter;
 @Getter
 public enum MobilityLossLevel {
   
-  COMPLETELY_LOST(1.0),
-  PARTIALLY_LOST(0.5),
-  NO(0.0);
+  COMPLETELY_LOST(Numbers.ONE),
+  PARTIALLY_LOST(Numbers.ONE_HALF),
+  NO(Numbers.ZERO);
   
-  private double level;
-
+  private BigDecimal level;
+  
+  public static MobilityLossLevel getRandomMobilityLossLevel() {
+    return CreationUtils.getRandomElement(MobilityLossLevel.values());
+  }
 }

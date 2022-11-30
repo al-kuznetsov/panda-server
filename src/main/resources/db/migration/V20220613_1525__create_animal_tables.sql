@@ -53,19 +53,19 @@ CREATE TABLE animal_indicators
     id bigint PRIMARY KEY DEFAULT nextval('global_id_sequence'),
     age integer,
     is_infant boolean,
-    consciousness_level real,
+    consciousness_level decimal,
     height real,
     breathing_rate integer,
     heart_rate integer,
-    bleeding_level real,
+    bleeding_level decimal,
     body_temperature real,
     severe_damage_count integer,
     mild_damage_count integer,
-    mobility_loss_level real,
-    appetite_level real,
+    mobility_loss_level decimal,
+    appetite_level decimal,
     has_symptoms boolean,
     is_pregnant boolean,
-    aggression_level real    
+    aggression_level decimal    
 );
 
 CREATE TABLE sex
