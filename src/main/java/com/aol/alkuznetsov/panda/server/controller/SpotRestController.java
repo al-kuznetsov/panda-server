@@ -1,4 +1,4 @@
-package com.aol.alkuznetsov.panda.server.rest;
+package com.aol.alkuznetsov.panda.server.controller;
 
 import com.aol.alkuznetsov.panda.server.dto.SpotDto;
 import com.aol.alkuznetsov.panda.server.service.SpotService;

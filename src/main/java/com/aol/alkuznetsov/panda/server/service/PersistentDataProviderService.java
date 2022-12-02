@@ -327,6 +327,7 @@ public class PersistentDataProviderService {
             .active(false)
             .type(dogType)
             .status(deadStatus)
+            .indicators(createAnimalIndicators())
             .build());
 
     animals.add(

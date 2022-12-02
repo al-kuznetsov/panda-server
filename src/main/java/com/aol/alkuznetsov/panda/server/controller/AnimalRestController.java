@@ -1,14 +1,13 @@
-package com.aol.alkuznetsov.panda.server.rest;
+package com.aol.alkuznetsov.panda.server.controller;
 
+import com.aol.alkuznetsov.panda.server.dto.AnimalCriteriaContainerDto;
 import com.aol.alkuznetsov.panda.server.dto.AnimalDto;
-import com.aol.alkuznetsov.panda.server.model.Animal;
 import com.aol.alkuznetsov.panda.server.service.AnimalService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.util.Pair;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,7 +60,7 @@ public class AnimalRestController {
   }
 
   @PostMapping("/calculateCriteriaVector")
-  public List<Pair<Animal, Double>> calculateCriteriaVectorForAnimalIds(
+  public List<AnimalCriteriaContainerDto> calculateCriteriaVectorForAnimalIds(
       @RequestBody List<Long> ids) {
     return animalService.calculateCriteriaVectorForAnimalIds(ids);
   }

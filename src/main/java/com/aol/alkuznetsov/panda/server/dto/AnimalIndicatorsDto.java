@@ -1,6 +1,5 @@
 package com.aol.alkuznetsov.panda.server.dto;
 
-import com.aol.alkuznetsov.panda.server.enums.AppetiteLevel;
 import lombok.Builder;
 import lombok.Data;
 
@@ -19,7 +18,7 @@ public class AnimalIndicatorsDto {
   private Integer severeDamageCount;
   private Integer mildDamageCount;
   private String mobilityLossLevel;
-  private AppetiteLevel appetiteLevel;
+  private String appetiteLevel;
   private Boolean hasSymptoms;
   private Boolean isPregnant;
   private String aggressionLevel;

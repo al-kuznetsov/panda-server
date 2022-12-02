@@ -6,6 +6,22 @@ vars:
       description: Spring Boot backend for Panda
   startup:
     init-sample-data: true
+  animal-indicator-weights:
+    age: 0.3
+    is-infant: 0.6
+    concsiousness-level: 1.0
+    height: 0.5
+    breathing-rate: 0.8
+    heart-rate: 0.8
+    bleeding-level: 0.9
+    body-temperature: 0.8
+    severe-damage-count: 0.9
+    mild-damage-count: 0.7
+    mobility-loss-level: 1.0
+    appetite-level: 0.8
+    has-symptoms: 0.8
+    is-pregnant: 0.3
+    aggression-level: 1.0
 springdoc:
   api-docs:
     enabled: true

@@ -1,16 +1,18 @@
 package com.aol.alkuznetsov.panda.server.service;
 
+import com.aol.alkuznetsov.panda.server.dto.AnimalCriteriaContainerDto;
 import com.aol.alkuznetsov.panda.server.dto.AnimalDto;
 import com.aol.alkuznetsov.panda.server.exception.DataNotFoundException;
+import com.aol.alkuznetsov.panda.server.mapper.AnimalCriteriaContainerMapper;
 import com.aol.alkuznetsov.panda.server.mapper.AnimalMapper;
 import com.aol.alkuznetsov.panda.server.model.Animal;
 import com.aol.alkuznetsov.panda.server.repository.AnimalRepository;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,7 @@ public class AnimalService {
   private final AnimalRepository animalRepository;
   private final AnimalMapper animalMapper;
   private final CriteriaCalculationService criteriaCalculationService;
+  private final AnimalCriteriaContainerMapper animalCriteriaContainerMapper;
 
   @Transactional(readOnly = true)
   public Page<AnimalDto> findAll(Pageable pageable) {
@@ -85,9 +88,11 @@ public class AnimalService {
   }
 
   @Transactional
-  public List<Pair<Animal, Double>> calculateCriteriaVectorForAnimalIds(List<Long> ids) {
-    log.debug("Retrieving a vector of animal-criteria pairs for a list of ids: {}", ids);
+  public List<AnimalCriteriaContainerDto> calculateCriteriaVectorForAnimalIds(List<Long> ids) {
+    log.debug("Retrieving a list of animal-criteria containers for a list of ids: {}", ids);
     List<Animal> animals = animalRepository.findAllByIdList(ids);
-    return criteriaCalculationService.calculateCriteria(animals);
+    return criteriaCalculationService.getCalculatedCriteria(animals)
+        .stream().map(animalCriteriaContainerMapper::toDto)
+        .collect(Collectors.toList());
   }
 }
