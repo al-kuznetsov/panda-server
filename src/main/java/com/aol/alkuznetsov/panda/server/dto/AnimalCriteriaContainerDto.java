@@ -8,7 +8,8 @@ import lombok.Data;
 public class AnimalCriteriaContainerDto {
 
   private AnimalDto animal;
-  private AnimalIndicatorsDto animalIndicatorsPostNormalize;
-  private AnimalIndicatorsDto animalIndicatorsPostWeighing;
+  private AnimalIndicatorsNumericDto animalIndicatorsNumericPreNormalize;
+  private AnimalIndicatorsNumericDto animalIndicatorsNumericPostNormalize;
+  private AnimalIndicatorsNumericDto animalIndicatorsNumericPostWeighing;
   private Double criteria;
 }

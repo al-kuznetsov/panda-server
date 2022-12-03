@@ -4,6 +4,7 @@ import com.aol.alkuznetsov.panda.server.config.AnimalIndicatorWeights;
 import com.aol.alkuznetsov.panda.server.model.Animal;
 import com.aol.alkuznetsov.panda.server.model.AnimalCriteriaContainer;
 import com.aol.alkuznetsov.panda.server.model.AnimalIndicators;
+import com.aol.alkuznetsov.panda.server.model.AnimalIndicatorsNumeric;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,13 +48,15 @@ public class CriteriaCalculationService {
 
   private final AnimalIndicatorWeights animalIndicatorWeights;
 
+  private Map<String, Map<Long, Double>> matrix;
+
   public List<AnimalCriteriaContainer> getCalculatedCriteria(List<Animal> animals) {
     Assert.notEmpty(animals, "Animal list must not be null nor empty");
     Assert.isTrue(animals.size() <= MAX_NUMBER_OF_ANIMALS,
         "Animal list contains too many elements");
 
     // 1. Build the matrix representation and the container list.
-    Map<String, Map<Long, Double>> matrix = new HashMap<>();
+    matrix = new HashMap<>();
     matrix.put(AGE, new HashMap<>());
     matrix.put(IS_INFANT, new HashMap<>());
     matrix.put(CONSCIOUSNESS_LEVEL, new HashMap<>());
@@ -99,9 +102,31 @@ public class CriteriaCalculationService {
           indicators.getAggressionLevel().getLevel().doubleValue());
       matrix.get(CRITERIA).put(id, 88.0);
 
+      // Write pre-normalize matrix into container.
+      AnimalIndicatorsNumeric indicatorsPreNormalise = AnimalIndicatorsNumeric.builder()
+          .age(getMatrixValue(AGE, id))
+          .isInfant(getMatrixValue(IS_INFANT, id))
+          .consciousnessLevel(getMatrixValue(CONSCIOUSNESS_LEVEL, id))
+          .height(getMatrixValue(HEIGHT, id))
+          .breathingRate(getMatrixValue(BREATHING_RATE, id))
+          .heartRate(getMatrixValue(HEIGHT, id))
+          .bleedingLevel(getMatrixValue(BLEEDING_LEVEL, id))
+          .bodyTemperature(getMatrixValue(BODY_TEMPERATURE, id))
+          .severeDamageCount(getMatrixValue(SEVERE_DAMAGE_COUNT, id))
+          .mildDamageCount(getMatrixValue(MILD_DAMAGE_COUNT, id))
+          .mobilityLossLevel(getMatrixValue(MOBILITY_LOSS_LEVEL, id))
+          .appetiteLevel(getMatrixValue(APPETITE_LEVEL, id))
+          .hasSymptoms(getMatrixValue(HAS_SYMPTOMS, id))
+          .isPregnant(getMatrixValue(IS_PREGNANT, id))
+          .aggressionLevel(getMatrixValue(AGGRESSION_LEVEL, id))
+          .build();
+
       containers.add(
           new AnimalCriteriaContainer(
-              tempAnimal, indicators, indicators, 88.0));
+              tempAnimal,
+              indicatorsPreNormalise,
+              indicatorsPreNormalise,
+              indicatorsPreNormalise, 88.0));
     });
 
     // 3. Normalization.
@@ -119,5 +144,13 @@ public class CriteriaCalculationService {
       return 0.0;
     }
     return 1.0;
+  }
+
+  private double getMatrixValue(String fieldName, Long animalId) {
+    return this.matrix.get(fieldName).get(animalId);
+  }
+
+  private double putMatrixValue(String fieldName, Long animalId, Double value) {
+    return this.matrix.get(fieldName).put(animalId, value);
   }
 }
