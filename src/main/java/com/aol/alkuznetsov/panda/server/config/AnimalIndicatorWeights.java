@@ -1,5 +1,7 @@
 package com.aol.alkuznetsov.panda.server.config;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -7,6 +9,8 @@ import org.springframework.stereotype.Component;
  * Весовые коэффициенты, отражающие степень важности каждого
  * локального критерия.
  */
+@Getter
+@Setter
 @Component
 @ConfigurationProperties(prefix = "vars.animal-indicator-weights")
 public class AnimalIndicatorWeights {

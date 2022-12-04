@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class CriteriaCalculationService {
 
   private static final int MAX_NUMBER_OF_ANIMALS = 5;
 
-  // Matrix column names
+  // Константы-имена колонок матрицы
   private static final String AGE = AnimalIndicators.Fields.age;
   private static final String IS_INFANT = AnimalIndicators.Fields.isInfant;
   private static final String CONSCIOUSNESS_LEVEL = AnimalIndicators.Fields.consciousnessLevel;
@@ -55,7 +56,7 @@ public class CriteriaCalculationService {
     Assert.isTrue(animals.size() <= MAX_NUMBER_OF_ANIMALS,
         "Animal list contains too many elements");
 
-    // 1. Build the matrix representation and the container list.
+    // 1. Построение представления матрицы и контейнеров хранения векторов.
     matrix = new HashMap<>();
     matrix.put(AGE, new HashMap<>());
     matrix.put(IS_INFANT, new HashMap<>());
@@ -76,11 +77,10 @@ public class CriteriaCalculationService {
 
     List<AnimalCriteriaContainer> containers = new ArrayList<>(animals.size());
 
-    // 2. Population
+    // 2. Наполнение матрицы первичными данными.
     animals.forEach(tempAnimal -> {
       Long id = tempAnimal.getId();
       AnimalIndicators indicators = tempAnimal.getIndicators();
-      log.debug("Extracting animal indicators: age = {}", indicators.getAge());
       matrix.get(AGE).put(id, indicators.getAge().doubleValue());
       matrix.get(IS_INFANT).put(id, translateBooleanIntoDouble(indicators.getIsInfant()));
       matrix.get(CONSCIOUSNESS_LEVEL).put(
@@ -100,43 +100,107 @@ public class CriteriaCalculationService {
       matrix.get(IS_PREGNANT).put(id, translateBooleanIntoDouble(indicators.getIsPregnant()));
       matrix.get(AGGRESSION_LEVEL).put(id,
           indicators.getAggressionLevel().getLevel().doubleValue());
-      matrix.get(CRITERIA).put(id, 88.0);
+      matrix.get(CRITERIA).put(id, 0.0);
 
-      // Write pre-normalize matrix into container.
-      AnimalIndicatorsNumeric indicatorsPreNormalise = AnimalIndicatorsNumeric.builder()
-          .age(getMatrixValue(AGE, id))
-          .isInfant(getMatrixValue(IS_INFANT, id))
-          .consciousnessLevel(getMatrixValue(CONSCIOUSNESS_LEVEL, id))
-          .height(getMatrixValue(HEIGHT, id))
-          .breathingRate(getMatrixValue(BREATHING_RATE, id))
-          .heartRate(getMatrixValue(HEIGHT, id))
-          .bleedingLevel(getMatrixValue(BLEEDING_LEVEL, id))
-          .bodyTemperature(getMatrixValue(BODY_TEMPERATURE, id))
-          .severeDamageCount(getMatrixValue(SEVERE_DAMAGE_COUNT, id))
-          .mildDamageCount(getMatrixValue(MILD_DAMAGE_COUNT, id))
-          .mobilityLossLevel(getMatrixValue(MOBILITY_LOSS_LEVEL, id))
-          .appetiteLevel(getMatrixValue(APPETITE_LEVEL, id))
-          .hasSymptoms(getMatrixValue(HAS_SYMPTOMS, id))
-          .isPregnant(getMatrixValue(IS_PREGNANT, id))
-          .aggressionLevel(getMatrixValue(AGGRESSION_LEVEL, id))
-          .build();
+      // Запись ненормализованных значений в контейнеры.
+      AnimalIndicatorsNumeric indicatorsPreNormalize = buildCurrentAnimalIndicatorsNumeric(id);
 
-      containers.add(
-          new AnimalCriteriaContainer(
-              tempAnimal,
-              indicatorsPreNormalise,
-              indicatorsPreNormalise,
-              indicatorsPreNormalise, 88.0));
+      AnimalCriteriaContainer container = new AnimalCriteriaContainer(tempAnimal);
+      container.setAnimalIndicatorsNumericPreNormalize(indicatorsPreNormalize);
+
+      containers.add(container);
     });
 
-    // 3. Normalization.
-    // TODO Implement normalization.
+    // 3. Нормализация значений и запись в контейнеры.
+    containers.forEach(tempContainer -> {
+      Long id = tempContainer.getAnimal().getId();
+      putMatrixValue(AGE, id,
+          getNormalizedByOptimalReference(AGE, id, Double.valueOf(12)));
+      putMatrixValue(HEIGHT, id,
+          (getMatrixColumnMaxValue(HEIGHT) - getMatrixValue(HEIGHT, id))
+              / getMatrixColumnValueRange(HEIGHT));
+      putMatrixValue(BREATHING_RATE, id,
+          getNormalizedByOptimalReference(BREATHING_RATE, id, Double.valueOf(20)));
+      putMatrixValue(HEART_RATE, id,
+          getNormalizedByOptimalReference(HEART_RATE, id, Double.valueOf(130)));
+      putMatrixValue(BODY_TEMPERATURE, id,
+          getNormalizedByOptimalReference(BODY_TEMPERATURE, id, Double.valueOf(38)));
+      putMatrixValue(SEVERE_DAMAGE_COUNT, id,
+          (getMatrixValue(SEVERE_DAMAGE_COUNT, id) - getMatrixColumnMinValue(SEVERE_DAMAGE_COUNT))
+              / getMatrixColumnMaxValue(SEVERE_DAMAGE_COUNT));
+      putMatrixValue(MILD_DAMAGE_COUNT, id,
+          (getMatrixValue(MILD_DAMAGE_COUNT, id) - getMatrixColumnMinValue(MILD_DAMAGE_COUNT))
+              / getMatrixColumnMaxValue(MILD_DAMAGE_COUNT));
 
-    // 4. Do the additive convolution.
-    // TODO Implement the convolution.
+      // Запись нормализованных значений в контейнеры.
+      AnimalIndicatorsNumeric indicatorsPostNormalize = buildCurrentAnimalIndicatorsNumeric(id);
+      tempContainer.setAnimalIndicatorsNumericPostNormalize(indicatorsPostNormalize);
+    });
+
+    // 4. Выполнение аддитивной свертки.
+    containers.forEach(tempContainer -> {
+      Long id = tempContainer.getAnimal().getId();
+      putMatrixValue(AGE, id, getMatrixValue(AGE, id) * animalIndicatorWeights.getAge());
+      putMatrixValue(IS_INFANT, id,
+          getMatrixValue(IS_INFANT, id) * animalIndicatorWeights.getIsInfant());
+      putMatrixValue(CONSCIOUSNESS_LEVEL, id,
+          getMatrixValue(CONSCIOUSNESS_LEVEL, id) * animalIndicatorWeights.getConsciousnessLevel());
+      putMatrixValue(HEIGHT, id, getMatrixValue(HEIGHT, id) * animalIndicatorWeights.getHeight());
+      putMatrixValue(BREATHING_RATE, id,
+          getMatrixValue(BREATHING_RATE, id) * animalIndicatorWeights.getBreathingRate());
+      putMatrixValue(HEART_RATE, id,
+          getMatrixValue(HEART_RATE, id) * animalIndicatorWeights.getHeartRate());
+      putMatrixValue(BLEEDING_LEVEL, id,
+          getMatrixValue(BLEEDING_LEVEL, id) * animalIndicatorWeights.getBleedingLevel());
+      putMatrixValue(BODY_TEMPERATURE, id,
+          getMatrixValue(BODY_TEMPERATURE, id) * animalIndicatorWeights.getBodyTemperature());
+      putMatrixValue(SEVERE_DAMAGE_COUNT, id,
+          getMatrixValue(SEVERE_DAMAGE_COUNT, id) * animalIndicatorWeights.getSevereDamageCount());
+      putMatrixValue(MILD_DAMAGE_COUNT, id,
+          getMatrixValue(MILD_DAMAGE_COUNT, id) * animalIndicatorWeights.getMildDamageCount());
+      putMatrixValue(MOBILITY_LOSS_LEVEL, id,
+          getMatrixValue(MOBILITY_LOSS_LEVEL, id) * animalIndicatorWeights.getMobilityLossLevel());
+      putMatrixValue(APPETITE_LEVEL, id,
+          getMatrixValue(APPETITE_LEVEL, id) * animalIndicatorWeights.getAppetiteLevel());
+      putMatrixValue(HAS_SYMPTOMS, id,
+          getMatrixValue(HAS_SYMPTOMS, id) * animalIndicatorWeights.getHasSymptoms());
+      putMatrixValue(IS_PREGNANT, id,
+          getMatrixValue(IS_PREGNANT, id) * animalIndicatorWeights.getIsPregnant());
+      putMatrixValue(AGGRESSION_LEVEL, id,
+          getMatrixValue(AGGRESSION_LEVEL, id) * animalIndicatorWeights.getAggressionLevel());
+
+      // Запись взвешенных значений в контейнеры.
+      AnimalIndicatorsNumeric indicatorsPostWeighing = buildCurrentAnimalIndicatorsNumeric(id);
+      tempContainer.setAnimalIndicatorsNumericPostWeighing(indicatorsPostWeighing);
+    });
 
     // 5. Return the result container.
     return containers;
+  }
+
+  private double getNormalizedByOptimalReference(String fieldName, Long id, Double referenceValue) {
+    return Math.abs(getMatrixValue(fieldName, id) - referenceValue)
+        / getMatrixColumnRange(fieldName);
+  }
+
+  private AnimalIndicatorsNumeric buildCurrentAnimalIndicatorsNumeric(Long id) {
+    return AnimalIndicatorsNumeric.builder()
+        .age(getMatrixValue(AGE, id))
+        .isInfant(getMatrixValue(IS_INFANT, id))
+        .consciousnessLevel(getMatrixValue(CONSCIOUSNESS_LEVEL, id))
+        .height(getMatrixValue(HEIGHT, id))
+        .breathingRate(getMatrixValue(BREATHING_RATE, id))
+        .heartRate(getMatrixValue(HEART_RATE, id))
+        .bleedingLevel(getMatrixValue(BLEEDING_LEVEL, id))
+        .bodyTemperature(getMatrixValue(BODY_TEMPERATURE, id))
+        .severeDamageCount(getMatrixValue(SEVERE_DAMAGE_COUNT, id))
+        .mildDamageCount(getMatrixValue(MILD_DAMAGE_COUNT, id))
+        .mobilityLossLevel(getMatrixValue(MOBILITY_LOSS_LEVEL, id))
+        .appetiteLevel(getMatrixValue(APPETITE_LEVEL, id))
+        .hasSymptoms(getMatrixValue(HAS_SYMPTOMS, id))
+        .isPregnant(getMatrixValue(IS_PREGNANT, id))
+        .aggressionLevel(getMatrixValue(AGGRESSION_LEVEL, id))
+        .build();
   }
 
   private double translateBooleanIntoDouble(Boolean booleanObj) {
@@ -152,5 +216,49 @@ public class CriteriaCalculationService {
 
   private double putMatrixValue(String fieldName, Long animalId, Double value) {
     return this.matrix.get(fieldName).put(animalId, value);
+  }
+
+  private double getMatrixColumnValueRange(String fieldName) {
+    return getMatrixColumnMaxValue(fieldName) - getMatrixColumnMinValue(fieldName);
+  }
+
+  private double getMatrixColumnRange(String fieldName) {
+    double overallRange;
+    switch (fieldName) {
+      case AGE:
+        // диапазон 0 - 300 месяцев
+        overallRange = 300.00;
+        break;
+      case BREATHING_RATE:
+        // норма 12-40 вдохов в минуту
+        // (в спокойном состоянии без нагрузки)
+        // диапазон 0 - 60
+        overallRange = 60.00;
+        break;
+      case HEART_RATE:
+        // норма 70-130 ударов в минуту
+        // диапазон 0 - 200
+        overallRange = 200.00;
+        break;
+      case BODY_TEMPERATURE:
+        // измеряемые значения в промежутке 35-43
+        overallRange = 8.00;
+        break;
+      default:
+        throw new IllegalArgumentException("Ошибочное наименование поля fieldName!");
+    }
+    return overallRange;
+  }
+
+  private double getMatrixColumnMaxValue(String fieldName) {
+    return this.matrix.get(fieldName).entrySet().stream()
+        .mapToDouble(Entry::getValue)
+        .max().getAsDouble();
+  }
+
+  private double getMatrixColumnMinValue(String fieldName) {
+    return this.matrix.get(fieldName).entrySet().stream()
+        .mapToDouble(Entry::getValue)
+        .min().getAsDouble();
   }
 }

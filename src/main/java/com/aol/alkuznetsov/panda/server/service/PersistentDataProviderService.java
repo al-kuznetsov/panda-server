@@ -264,7 +264,7 @@ public class PersistentDataProviderService {
         .consciousnessLevel(ConsciousnessLevel.getRandomConsiousnessLevel())
         .height(ThreadLocalRandom.current().nextDouble(20.0, 100.0))
         .breathingRate(ThreadLocalRandom.current().nextInt(8, 40))
-        .heartRate(ThreadLocalRandom.current().nextInt(30, 190))
+        .heartRate(ThreadLocalRandom.current().nextInt(50, 190))
         .bleedingLevel(BleedingLevel.getRandomBleedingLevel())
         .bodyTemperature(ThreadLocalRandom.current().nextDouble(34, 42))
         .severeDamageCount(ThreadLocalRandom.current().nextInt(0, 3))

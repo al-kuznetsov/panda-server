@@ -9,7 +9,7 @@ vars:
   animal-indicator-weights:
     age: 0.3
     is-infant: 0.6
-    concsiousness-level: 1.0
+    consciousness-level: 1.0
     height: 0.5
     breathing-rate: 0.8
     heart-rate: 0.8
