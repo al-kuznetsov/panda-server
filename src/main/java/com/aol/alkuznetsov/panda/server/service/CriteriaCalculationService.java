@@ -6,6 +6,7 @@ import com.aol.alkuznetsov.panda.server.model.AnimalCriteriaContainer;
 import com.aol.alkuznetsov.panda.server.model.AnimalIndicators;
 import com.aol.alkuznetsov.panda.server.model.AnimalIndicatorsNumeric;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -172,9 +173,15 @@ public class CriteriaCalculationService {
       // Запись взвешенных значений в контейнеры.
       AnimalIndicatorsNumeric indicatorsPostWeighing = buildCurrentAnimalIndicatorsNumeric(id);
       tempContainer.setAnimalIndicatorsNumericPostWeighing(indicatorsPostWeighing);
+      // Запись рассчитанных итоговых критериев в контейнеры.
+      tempContainer.setCriteria(calculateTheCriteria(indicatorsPostWeighing));
     });
 
-    // 5. Return the result container.
+    // 5. Отсортировать контейнеры по убыванию итогового критерия.
+    containers.sort(
+        Comparator.comparing(AnimalCriteriaContainer::getCriteria, Comparator.reverseOrder()));
+
+    // 6. Вернуть полностью просчитанные контейнеры.
     return containers;
   }
 
@@ -201,6 +208,24 @@ public class CriteriaCalculationService {
         .isPregnant(getMatrixValue(IS_PREGNANT, id))
         .aggressionLevel(getMatrixValue(AGGRESSION_LEVEL, id))
         .build();
+  }
+
+  private double calculateTheCriteria(AnimalIndicatorsNumeric indicators) {
+    return indicators.getAge() +
+        indicators.getIsInfant() +
+        indicators.getConsciousnessLevel() +
+        indicators.getHeight() +
+        indicators.getBreathingRate() +
+        indicators.getHeartRate() +
+        indicators.getBleedingLevel() +
+        indicators.getBodyTemperature() +
+        indicators.getSevereDamageCount() +
+        indicators.getMildDamageCount() +
+        indicators.getMobilityLossLevel() +
+        indicators.getAppetiteLevel() +
+        indicators.getHasSymptoms() +
+        indicators.getIsPregnant() +
+        indicators.getAggressionLevel();
   }
 
   private double translateBooleanIntoDouble(Boolean booleanObj) {
