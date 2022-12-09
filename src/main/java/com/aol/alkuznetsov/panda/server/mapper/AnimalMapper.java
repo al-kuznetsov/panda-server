@@ -12,7 +12,8 @@ import org.mapstruct.Mapping;
       DateTimeMapper.class,
       AnimalStatusMapper.class,
       AnimalTypeMapper.class,
-      AnimalIndicatorsMapper.class
+      AnimalIndicatorsMapper.class,
+      SexMapper.class
     })
 public interface AnimalMapper {
 

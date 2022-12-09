@@ -20,6 +20,7 @@ import com.aol.alkuznetsov.panda.server.model.Locality;
 import com.aol.alkuznetsov.panda.server.model.LocalityType;
 import com.aol.alkuznetsov.panda.server.model.Region;
 import com.aol.alkuznetsov.panda.server.model.RegionType;
+import com.aol.alkuznetsov.panda.server.model.Sex;
 import com.aol.alkuznetsov.panda.server.model.Spot;
 import com.aol.alkuznetsov.panda.server.model.User;
 import com.aol.alkuznetsov.panda.server.repository.AddressTypeRepository;
@@ -32,6 +33,7 @@ import com.aol.alkuznetsov.panda.server.repository.LocalityRepository;
 import com.aol.alkuznetsov.panda.server.repository.LocalityTypeRepository;
 import com.aol.alkuznetsov.panda.server.repository.RegionRepository;
 import com.aol.alkuznetsov.panda.server.repository.RegionTypeRepository;
+import com.aol.alkuznetsov.panda.server.repository.SexRepository;
 import com.aol.alkuznetsov.panda.server.repository.SpotRepository;
 import com.aol.alkuznetsov.panda.server.repository.UserRepository;
 import com.aol.alkuznetsov.panda.server.util.DebugUtils;
@@ -65,6 +67,7 @@ public class PersistentDataProviderService {
   private final AnimalRepository animalRepository;
   private final SpotRepository spotRepository;
   private final UserRepository userRepository;
+  private final SexRepository sexRepository;
 
   @Transactional
   public List<Country> newListOfCountries(boolean persist) {
@@ -257,6 +260,20 @@ public class PersistentDataProviderService {
     }
   }
 
+  @Transactional
+  public List<Sex> newListOfSexes(boolean persist) {
+    List<Sex> sexes = new ArrayList<>(2);
+    sexes.add(Sex.builder().code("MALE").name("Самец").build());
+    sexes.add(Sex.builder().code("FEMALE").name("Самка").build());
+    if (persist) {
+      List<Sex> savedSexes = sexRepository.saveAll(sexes);
+      log.debug("Saved sexes to Database: {}", savedSexes);
+      return savedSexes;
+    } else {
+      return sexes;
+    }
+  }
+
   private AnimalIndicators createAnimalIndicators() {
     return AnimalIndicators.builder()
         .age(ThreadLocalRandom.current().nextInt(1, 240))
@@ -285,6 +302,8 @@ public class PersistentDataProviderService {
     AnimalType catType = animalTypeRepository.findByCode("CAT").orElse(null);
     AnimalStatus deadStatus = animalStatusRepository.findByCode("DEAD").orElse(null);
     AnimalStatus strayStatus = animalStatusRepository.findByCode("STRAY").orElse(null);
+    Sex male = sexRepository.findByCode("MALE").orElse(null);
+    Sex female = sexRepository.findByCode("FEMALE").orElse(null);
 
     animals.add(
         Animal.builder()
@@ -298,6 +317,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -311,6 +331,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -327,6 +348,7 @@ public class PersistentDataProviderService {
             .active(false)
             .type(dogType)
             .status(deadStatus)
+            .sex(female)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -340,6 +362,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -353,6 +376,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -367,6 +391,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(female)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -380,6 +405,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -393,6 +419,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -406,6 +433,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(female)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -420,6 +448,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(female)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -435,6 +464,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -450,6 +480,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -464,6 +495,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(female)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -478,6 +510,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -493,6 +526,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(catType)
             .status(strayStatus)
+            .sex(female)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -506,6 +540,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(catType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -519,6 +554,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(catType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -533,6 +569,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(catType)
             .status(strayStatus)
+            .sex(female)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -547,6 +584,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(catType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -562,6 +600,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -575,6 +614,7 @@ public class PersistentDataProviderService {
             .imageUrl("assets/images/animals/Panda.jpg")
             .active(true)
             .type(dogType)
+            .sex(female)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -588,6 +628,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(catType)
             .status(strayStatus)
+            .sex(female)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -602,6 +643,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(catType)
             .status(strayStatus)
+            .sex(female)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -617,6 +659,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -630,6 +673,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -644,6 +688,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(catType)
             .status(strayStatus)
+            .sex(female)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -658,6 +703,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(catType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -673,6 +719,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -691,6 +738,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -706,6 +754,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -722,6 +771,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -737,6 +787,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(dogType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -752,6 +803,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(catType)
             .status(strayStatus)
+            .sex(female)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -769,6 +821,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(catType)
             .status(strayStatus)
+            .sex(female)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -783,6 +836,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(catType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 
@@ -800,6 +854,7 @@ public class PersistentDataProviderService {
             .active(true)
             .type(catType)
             .status(strayStatus)
+            .sex(male)
             .indicators(createAnimalIndicators())
             .build());
 

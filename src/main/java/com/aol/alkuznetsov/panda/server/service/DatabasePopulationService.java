@@ -35,6 +35,7 @@ public class DatabasePopulationService {
       persistentDataProviderService.newListOfLocalities(true);
       persistentDataProviderService.newListOfAddressType(true);
       persistentDataProviderService.newListOfAnimalType(true);
+      persistentDataProviderService.newListOfSexes(true);
       persistentDataProviderService.newListOfBreed(true);
       persistentDataProviderService.newListOfAnimalStatus(true);
       persistentDataProviderService.newListOfAnimals(true);
