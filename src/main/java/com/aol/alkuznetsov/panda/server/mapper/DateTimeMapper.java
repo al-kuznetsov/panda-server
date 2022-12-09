@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 @Mapper(config = MapperCentralConfig.class)
 public interface DateTimeMapper {
   default Long fromInstant(Instant instant) {
-    return instant.toEpochMilli();
+    return instant != null ? instant.toEpochMilli() : null;
   }
 
   default Instant toInstant(Long timestamp) {
