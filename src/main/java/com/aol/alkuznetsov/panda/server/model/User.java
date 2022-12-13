@@ -26,19 +26,19 @@ public class User {
   @SequenceGenerator(name = "global_id_sequence", allocationSize = 5)
   private Long id;
 
-  @Column(name = "name")
+  @Column(name = "name", nullable = false, length = 512)
   private String name;
 
-  @Column(name = "email")
+  @Column(name = "email", nullable = false, length = 512)
   private String email;
 
-  @Column(name = "job_title")
+  @Column(name = "job_title", nullable = false, length = 256)
   private String jobTitle;
 
-  @Column(name = "phone")
+  @Column(name = "phone", length = 20)
   private String phone;
 
-  @Column(name = "image_url")
+  @Column(name = "image_url", length = 512)
   private String imageUrl;
 
   @Column(name = "user_code", nullable = false, updatable = false)
