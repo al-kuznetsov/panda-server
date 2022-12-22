@@ -111,15 +111,21 @@ public class CriteriaCalculationService {
 
       containers.add(container);
     });
-
+    
     // 3. Нормализация значений и запись в контейнеры.
+    double maxHeight = getMatrixColumnMaxValue(HEIGHT);
+    double rangeHeight = getMatrixColumnValueRange(HEIGHT);
+    double minSevereDamageCount  = getMatrixColumnMinValue(SEVERE_DAMAGE_COUNT);
+    double maxSevereDamageCount = getMatrixColumnMaxValue(SEVERE_DAMAGE_COUNT);
+    double minMildDamageCount  = getMatrixColumnMinValue(MILD_DAMAGE_COUNT);
+    double maxMildDamageCount = getMatrixColumnMaxValue(MILD_DAMAGE_COUNT);
+    
     containers.forEach(tempContainer -> {
       Long id = tempContainer.getAnimal().getId();
       putMatrixValue(AGE, id,
           getNormalizedByOptimalReference(AGE, id, Double.valueOf(12)));
       putMatrixValue(HEIGHT, id,
-          (getMatrixColumnMaxValue(HEIGHT) - getMatrixValue(HEIGHT, id))
-              / getMatrixColumnValueRange(HEIGHT));
+          (maxHeight - getMatrixValue(HEIGHT, id))/ rangeHeight);
       putMatrixValue(BREATHING_RATE, id,
           getNormalizedByOptimalReference(BREATHING_RATE, id, Double.valueOf(20)));
       putMatrixValue(HEART_RATE, id,
@@ -127,11 +133,9 @@ public class CriteriaCalculationService {
       putMatrixValue(BODY_TEMPERATURE, id,
           getNormalizedByOptimalReference(BODY_TEMPERATURE, id, Double.valueOf(38)));
       putMatrixValue(SEVERE_DAMAGE_COUNT, id,
-          (getMatrixValue(SEVERE_DAMAGE_COUNT, id) - getMatrixColumnMinValue(SEVERE_DAMAGE_COUNT))
-              / getMatrixColumnMaxValue(SEVERE_DAMAGE_COUNT));
+          (getMatrixValue(SEVERE_DAMAGE_COUNT, id) - minSevereDamageCount)/maxSevereDamageCount);
       putMatrixValue(MILD_DAMAGE_COUNT, id,
-          (getMatrixValue(MILD_DAMAGE_COUNT, id) - getMatrixColumnMinValue(MILD_DAMAGE_COUNT))
-              / getMatrixColumnMaxValue(MILD_DAMAGE_COUNT));
+          (getMatrixValue(MILD_DAMAGE_COUNT, id) - minMildDamageCount)/ maxMildDamageCount);
 
       // Запись нормализованных значений в контейнеры.
       AnimalIndicatorsNumeric indicatorsPostNormalize = buildCurrentAnimalIndicatorsNumeric(id);
